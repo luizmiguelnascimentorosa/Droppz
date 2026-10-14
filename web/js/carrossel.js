@@ -112,6 +112,9 @@
 
   visor.addEventListener('pointerdown', function (evento) {
     if (evento.pointerType === 'mouse' && evento.button !== 0) return;
+    // Clique em link ou botão do slide: NÃO captura o ponteiro. Com a captura, o
+    // navegador entrega o "pointerup" ao visor e o clique nunca chega ao link.
+    if (evento.target.closest('a, button')) return;
     inicioX = evento.clientX;
     arrastando = true;
     parar();

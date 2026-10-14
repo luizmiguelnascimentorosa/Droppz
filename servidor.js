@@ -3,7 +3,7 @@ const http = require('http');
 const fs   = require('fs');
 const path = require('path');
 
-const PORTA    = 5500;
+const PORTA    = 5000;
 const RAIZ     = path.join(__dirname, 'web');       // único diretório público
 const PARCIAIS = path.join(__dirname, 'partials');  // nunca acessível por URL
 
@@ -70,6 +70,15 @@ const servidor = http.createServer(function (req, res) {
     res.writeHead(200, { 'Content-Type': tipo });
     res.end(corpo);
   });
+});
+
+servidor.on('error', function (erro) {
+  if (erro.code === 'EADDRINUSE') {
+    console.error('A porta ' + PORTA + ' ja esta em uso. Feche o outro servidor ou troque a PORTA.');
+  } else {
+    console.error(erro.message);
+  }
+  process.exit(1);
 });
 
 servidor.listen(PORTA, function () {

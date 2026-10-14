@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coleções — SUA MARCA</title>
+  <meta name="description" content="Conheça as quatro linhas da loja: Essencial, Drop Inverno, Linha Neon e Básicos, cada uma com ficha técnica própria.">
+  <meta name="theme-color" content="#0e0e0e">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <a class="pular-para-conteudo" href="#conteudo-principal">Pular para o conteúdo principal</a>
+
+  <!-- #include header -->
+
+  <!-- #include sacola -->
+
+  <main id="conteudo-principal">
+    <div class="container pagina">
+      <nav class="trilha" aria-label="Você está em">
+        <a href="index.html">Início</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Coleções</span>
+      </nav>
+
+      <div class="titulo-pagina" style="margin-block: var(--esp-4) var(--esp-7)">
+        <h1>Coleções</h1>
+        <p class="texto-suave">
+          Quatro linhas com ficha técnica própria, do básico de reposição ao drop limitado.
+          Estoque próprio, produção nacional e tecido e gramatura sempre visíveis em cada peça.
+        </p>
+      </div>
+
+      <nav aria-label="Escolher coleção">
+        <div class="mosaico">
+          <a class="mosaico__item" href="#essencial">
+            <img src="assets/img/drop-01.svg" alt="" width="600" height="800" loading="lazy">
+            <span class="mosaico__veu" aria-hidden="true"></span>
+            <span class="mosaico__texto">
+              <h3>Essencial</h3>
+              <p>Algodão pesado 240 g/m² · <span data-contagem-tile="essencial"></span></p>
+            </span>
+          </a>
+          <a class="mosaico__item" href="#drop-inverno">
+            <img src="assets/img/drop-02.svg" alt="" width="600" height="800" loading="lazy">
+            <span class="mosaico__veu" aria-hidden="true"></span>
+            <span class="mosaico__texto">
+              <h3>Drop Inverno</h3>
+              <p>Moletom flanelado 320 g/m² · <span data-contagem-tile="drop-inverno"></span></p>
+            </span>
+          </a>
+          <a class="mosaico__item" href="#linha-neon">
+            <img src="assets/img/drop-03.svg" alt="" width="600" height="800" loading="lazy">
+            <span class="mosaico__veu" aria-hidden="true"></span>
+            <span class="mosaico__texto">
+              <h3>Linha Neon</h3>
+              <p>Serigrafia à base d'água · <span data-contagem-tile="linha-neon"></span></p>
+            </span>
+          </a>
+          <a class="mosaico__item" href="#basicos">
+            <img src="assets/img/drop-04.svg" alt="" width="600" height="800" loading="lazy">
+            <span class="mosaico__veu" aria-hidden="true"></span>
+            <span class="mosaico__texto">
+              <h3>Básicos</h3>
+              <p>Estoque permanente · <span data-contagem-tile="basicos"></span></p>
+            </span>
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <section class="secao ancora" id="essencial" data-colecao="essencial" aria-labelledby="titulo-essencial">
+      <div class="container">
+        <div class="secao__cabecalho">
+          <div>
+            <span class="etiqueta">Coleção · <span data-contagem-colecao></span></span>
+            <h2 class="secao__titulo" id="titulo-essencial">Essencial</h2>
+            <p class="secao__descricao">Camisetas oversized em algodão penteado 240 g/m², costura reforçada no ombro e modelagem que não deforma na terceira lavagem.</p>
+          </div>
+        </div>
+        <div class="grid-produtos" data-grid-colecao></div>
+      </div>
+    </section>
+
+    <section class="secao secao--alt ancora" id="drop-inverno" data-colecao="drop-inverno" aria-labelledby="titulo-drop-inverno">
+      <div class="container">
+        <div class="secao__cabecalho">
+          <div>
+            <span class="etiqueta">Coleção · <span data-contagem-colecao></span></span>
+            <h2 class="secao__titulo" id="titulo-drop-inverno">Drop Inverno</h2>
+            <p class="secao__descricao">Hoodies e crewnecks em moletom flanelado 320 g/m², com interior felpado, punho canelado e capuz forrado. Produção nacional em tiragem limitada.</p>
+          </div>
+        </div>
+        <div class="grid-produtos" data-grid-colecao></div>
+      </div>
+    </section>
+
+    <section class="secao ancora" id="linha-neon" data-colecao="linha-neon" aria-labelledby="titulo-linha-neon">
+      <div class="container">
+        <div class="secao__cabecalho">
+          <div>
+            <span class="etiqueta">Coleção · <span data-contagem-colecao></span></span>
+            <h2 class="secao__titulo" id="titulo-linha-neon">Linha Neon</h2>
+            <p class="secao__descricao">Verde neon com serigrafia à base d'água. Quando acabar, não volta: tiragem curta e numerada.</p>
+          </div>
+        </div>
+        <div class="grid-produtos" data-grid-colecao></div>
+      </div>
+    </section>
+
+    <section class="secao secao--alt ancora" id="basicos" data-colecao="basicos" aria-labelledby="titulo-basicos">
+      <div class="container">
+        <div class="secao__cabecalho">
+          <div>
+            <span class="etiqueta">Coleção · <span data-contagem-colecao></span></span>
+            <h2 class="secao__titulo" id="titulo-basicos">Básicos</h2>
+            <p class="secao__descricao">Estoque permanente: as peças de reposição, com ficha técnica transparente e postagem em até 24h úteis.</p>
+          </div>
+        </div>
+        <div class="grid-produtos" data-grid-colecao></div>
+      </div>
+    </section>
+
+    <section class="secao" aria-labelledby="titulo-chamada">
+      <div class="container">
+        <div class="chamada">
+          <span class="etiqueta">Prefere filtrar?</span>
+          <h2 id="titulo-chamada">Veja tudo em um só lugar</h2>
+          <p>Na vitrine você combina coleção com categoria, caimento, tamanho, cor e faixa de preço. Em dúvida no tamanho, consulte o guia de medidas.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:var(--esp-3)">
+            <a class="btn" href="index.html#vitrine">Ver todos os produtos</a>
+            <a class="btn btn--contorno" href="guia-de-medidas.html">Guia de medidas</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- #include rodape -->
+
+  <div class="toast-regiao" id="toast-regiao" aria-live="polite" aria-atomic="true"></div>
+
+  <template id="tpl-card">
+    <article class="card" data-produto-id="">
+      <a class="card__midia" href="#" data-link-produto>
+        <img class="card__imagem" src="" alt="" width="480" height="600" loading="lazy" decoding="async">
+        <span class="card__badges"></span>
+        <button class="card__favorito" type="button" aria-pressed="false"
+                aria-label="Salvar na lista de desejos" data-acao="favoritar">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 20s-7-4.4-7-9.2A4 4 0 0 1 12 8a4 4 0 0 1 7 2.8C19 15.6 12 20 12 20z"></path>
+          </svg>
+        </button>
+      </a>
+      <div class="card__corpo">
+        <p class="card__marca"></p>
+        <h3 class="card__titulo"><a href="#" data-link-produto></a></h3>
+        <ul class="card__atributos"></ul>
+        <div class="card__variacoes">
+          <div class="card__tamanhos" role="group" aria-label="Escolher tamanho"></div>
+          <div class="card__cores" aria-hidden="true"></div>
+        </div>
+        <p class="card__preco">
+          <span class="preco"></span>
+          <span class="card__parcelas"></span>
+        </p>
+        <div class="card__acoes">
+          <button class="btn btn--bloco" type="button" data-acao="adicionar">Adicionar à sacola</button>
+        </div>
+        <p class="card__entrega">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"></path><circle cx="12" cy="10" r="2.4"></circle>
+          </svg>
+          <span></span>
+        </p>
+      </div>
+    </article>
+  </template>
+
+  <template id="tpl-item-sacola">
+    <li class="item-sacola" data-item-id="">
+      <img class="item-sacola__imagem" src="" alt="" width="76" height="95" loading="lazy">
+      <div class="item-sacola__info">
+        <p class="item-sacola__titulo"></p>
+        <p class="item-sacola__variacao"></p>
+        <p class="item-sacola__vendedor"></p>
+        <div class="item-sacola__rodape">
+          <div class="controle-qtd">
+            <button type="button" data-acao="diminuir" aria-label="Diminuir quantidade">−</button>
+            <output aria-live="polite"></output>
+            <button type="button" data-acao="aumentar" aria-label="Aumentar quantidade">+</button>
+          </div>
+          <span class="preco"></span>
+        </div>
+        <button class="item-sacola__remover" type="button" data-acao="remover">Remover</button>
+      </div>
+    </li>
+  </template>
+
+  <!-- Tem cards, mas não tem filtros nem banner: sem vitrine.js e sem carrossel.js.
+       A ordem importa: dependências antes de quem as usa. -->
+  <script src="js/config.js" defer></script>
+  <script src="js/dados.js" defer></script>
+  <script src="js/sacola.js" defer></script>
+  <script src="js/favoritos.js" defer></script>
+  <script src="js/frete.js" defer></script>
+  <script src="js/card-produto.js" defer></script>
+  <script src="js/colecoes.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
+</document_content>
