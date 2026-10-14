@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- ⚠️ TROQUE A MARCA AQUI (1/3) -->
+  <title>SUA MARCA — Streetwear de Marca Própria | Loja Oficial</title>
+  <meta name="description" content="Loja oficial: camisetas oversized em algodão pesado, moletons flanelados, calças cargo e jaquetas. Frete grátis acima de R$ 349 e troca em 30 dias.">
+  <meta name="theme-color" content="#0e0e0e">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <!-- CSS modular em 4 camadas, sempre nesta ordem: tokens -> base -> layout -> componentes -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <a class="pular-para-conteudo" href="#conteudo-principal">Pular para o conteúdo principal</a>
+
+  <!-- =====================================================================
+       HEADER GLOBAL PERSISTENTE
+       marca (esquerda) | busca unificada (centro) | links, perfil e carrinho (direita)
+       ===================================================================== -->
+   
+       <!-- #include header -->
+
+<!-- =======================================================================
+                                MENU SACOLA
+     ======================================================================= -->
+ <!-- #include sacola -->
+
+  <main id="conteudo-principal">
+    <!-- =====================================================================
+         BANNER ROTATIVO (js/carrossel.js — JavaScript puro)
+         ===================================================================== -->
+    <section class="hero container" aria-label="Destaques da semana">
+      <div class="carrossel" id="carrossel"
+           role="region" aria-roledescription="carrossel" aria-label="Destaques da loja">
+        <div class="carrossel__visor">
+          <ul class="carrossel__trilha" id="carrossel-trilha">
+            <li class="carrossel__slide" role="group" aria-roledescription="slide" aria-label="1 de 3">
+              <img class="carrossel__imagem" src="assets/img/banner-01.svg" alt=""
+                   width="1680" height="640" fetchpriority="high">
+              <span class="carrossel__veu" aria-hidden="true"></span>
+              <div class="carrossel__conteudo">
+                <span class="badge">Coleção Essencial</span>
+                <h2 class="carrossel__titulo">Algodão pesado.<br>Sem enrolação.</h2>
+                <p class="carrossel__texto">
+                  Camisetas oversized em algodão penteado 240 g/m², costura reforçada no ombro
+                  e modelagem que não deforma na terceira lavagem.
+                </p>
+                <div class="carrossel__acoes">
+                  <a class="btn btn--neon" href="#vitrine">Ver a coleção</a>
+                  <a class="btn btn--contorno" href="guia-de-medidas.html"
+                     style="color:#fff;border-color:rgba(255,255,255,.45)">Guia de medidas</a>
+                </div>
+              </div>
+            </li>
+
+            <li class="carrossel__slide" role="group" aria-roledescription="slide" aria-label="2 de 3">
+              <img class="carrossel__imagem" src="assets/img/banner-02.svg" alt=""
+                   width="1680" height="640" loading="lazy">
+              <span class="carrossel__veu" aria-hidden="true"></span>
+              <div class="carrossel__conteudo">
+                <span class="badge badge--escuro">Drop Inverno</span>
+                <h2 class="carrossel__titulo">Moletom flanelado 320 g/m²</h2>
+                <p class="carrossel__texto">
+                  Hoodies e crewnecks com interior felpado, punho canelado e capuz forrado.
+                  Produção nacional em tiragem limitada.
+                </p>
+                <div class="carrossel__acoes">
+                  <a class="btn btn--neon" href="#colecoes">Conhecer o drop</a>
+                </div>
+              </div>
+            </li>
+
+            <li class="carrossel__slide" role="group" aria-roledescription="slide" aria-label="3 de 3">
+              <img class="carrossel__imagem" src="assets/img/banner-03.svg" alt=""
+                   width="1680" height="640" loading="lazy">
+              <span class="carrossel__veu" aria-hidden="true"></span>
+              <div class="carrossel__conteudo">
+                <span class="badge">Linha Neon</span>
+                <h2 class="carrossel__titulo">Alta visibilidade, tiragem curta</h2>
+                <p class="carrossel__texto">
+                  Verde neon com serigrafia à base d'água. Quando acabar, não volta:
+                  são 40 peças numeradas por modelo.
+                </p>
+                <div class="carrossel__acoes">
+                  <a class="btn btn--neon" href="#vitrine">Ver linha neon</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="carrossel__setas">
+          <button class="carrossel__seta" type="button" data-carrossel="anterior" aria-label="Destaque anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M14.5 5.5 8 12l6.5 6.5"></path>
+            </svg>
+          </button>
+          <button class="carrossel__seta" type="button" data-carrossel="proximo" aria-label="Próximo destaque">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M9.5 5.5 16 12l-6.5 6.5"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="carrossel__pontos" id="carrossel-pontos" role="tablist" aria-label="Selecionar destaque"></div>
+      </div>
+    </section>
+
+    <!-- Vantagens de comprar na loja oficial -->
+    <section class="container" aria-label="Vantagens de comprar na loja oficial">
+      <ul class="beneficios">
+        <li class="beneficio">
+          <span class="beneficio__icone" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"></path><circle cx="7" cy="18" r="1.6"></circle><circle cx="17.5" cy="18" r="1.6"></circle>
+            </svg>
+          </span>
+          <div>
+            <p class="beneficio__titulo">Frete grátis acima de R$ 349</p>
+            <p class="beneficio__texto">Para todo o Brasil, com código de rastreio.</p>
+          </div>
+        </li>
+        <li class="beneficio">
+          <span class="beneficio__icone" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <rect x="3" y="6" width="18" height="12" rx="2"></rect><path d="M3 10h18"></path>
+            </svg>
+          </span>
+          <div>
+            <p class="beneficio__titulo">Pix e cartão em até 12x</p>
+            <p class="beneficio__texto">Checkout transparente via Mercado Pago.</p>
+          </div>
+        </li>
+        <li class="beneficio">
+          <span class="beneficio__icone" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <path d="M20 7 9.5 17.5 4 12"></path>
+            </svg>
+          </span>
+          <div>
+            <p class="beneficio__titulo">Postagem em até 24h úteis</p>
+            <p class="beneficio__texto">Estoque próprio, despachado por nós mesmos.</p>
+          </div>
+        </li>
+        <li class="beneficio">
+          <span class="beneficio__icone" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"></path><circle cx="12" cy="12" r="3.2"></circle>
+            </svg>
+          </span>
+          <div>
+            <p class="beneficio__titulo">Troca de tamanho em 30 dias</p>
+            <p class="beneficio__texto">Primeira troca por conta da loja.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- =====================================================================
+         CATÁLOGO — sidebar de filtros (esquerda) + grid de produtos (direita)
+         ===================================================================== -->
+    <section class="container pagina" id="vitrine" aria-labelledby="titulo-vitrine">
+      <nav class="trilha" aria-label="Você está em">
+        <a href="index.html">Início</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Todos os produtos</span>
+      </nav>
+
+      <div class="titulo-pagina" style="margin-block: var(--esp-4) var(--esp-7)">
+        <h1 id="titulo-vitrine">Streetwear de marca própria, feito para durar</h1>
+        <p class="texto-suave">
+          Camisetas em algodão pesado, moletons flanelados, calças cargo e jaquetas.
+          Estoque próprio, produção nacional e ficha técnica transparente em cada peça.
+        </p>
+      </div>
+
+      <div class="catalogo">
+        <!-- ---------------- BARRA LATERAL DE FILTROS ---------------- -->
+        <aside class="filtros" id="filtros" aria-label="Filtros de produtos">
+          <div class="filtros__cabecalho">
+            <h2 class="filtros__titulo">Filtrar</h2>
+            <button class="filtros__limpar" type="button" id="limpar-filtros">Limpar tudo</button>
+          </div>
+
+          <!-- Utilitário de frete: em loja única a região serve para calcular entrega, não para filtrar vendedor -->
+          <div class="filtro__corpo" style="padding-bottom: var(--esp-5)">
+            <p class="filtro__nota" style="margin-bottom: var(--esp-2)">
+              <strong>Entrega:</strong> informe seu CEP para ver frete e prazo deste pedido.
+            </p>
+            <div class="campo">
+              <label class="sr-only" for="cep-frete">Seu CEP</label>
+              <input class="campo__entrada" id="cep-frete" name="cep" inputmode="numeric"
+                     maxlength="9" placeholder="Seu CEP (ex.: 01310-100)">
+            </div>
+            <p class="filtro__nota" id="cep-resultado" role="status" aria-live="polite"></p>
+          </div>
+
+          <form id="form-filtros" novalidate>
+            <!-- 1. Categoria -->
+            <details class="filtro" open>
+              <summary class="filtro__titulo">Categoria</summary>
+              <div class="filtro__corpo">
+                <label class="caixa">
+                  <input type="checkbox" name="categoria" value="camisetas">
+                  <span>Camisetas</span>
+                  <span class="caixa__contagem" data-contagem="categoria:camisetas"></span>
+                </label>
+                <label class="caixa">
+                  <input type="checkbox" name="categoria" value="regatas">
+                  <span>Regatas</span>
+                  <span class="caixa__contagem" data-contagem="categoria:regatas"></span>
+                </label>
+                <label class="caixa">
+                  <input type="checkbox" name="categoria" value="moletons">
+                  <span>Moletons</span>
+                  <span class="caixa__contagem" data-contagem="categoria:moletons"></span>
+                </label>
+                <label class="caixa">
+                  <input type="checkbox" name="categoria" value="calcas">
+                  <span>Calças</span>
+                  <span class="caixa__contagem" data-contagem="categoria:calcas"></span>
+                </label>
+                <label class="caixa">
+                  <input type="checkbox" name="categoria" value="jaquetas">
+                  <span>Jaquetas</span>
+                  <span class="caixa__contagem" data-contagem="categoria:jaquetas"></span>
+                </label>
+                <label class="caixa">
+                  <input type="checkbox" name="categoria" value="bones">
+                  <span>Bonés</span>
+                  <span class="caixa__contagem" data-contagem="categoria:bones"></span>
+                </label>
+                <label class="caixa">
+                  <input type="checkbox" name="categoria" value="acessorios">
+                  <span>Acessórios</span>
+                  <span class="caixa__contagem" data-contagem="categoria:acessorios"></span>
+                </label>
+              </div>
+            </details>
+
+            <!-- 2. Condição -->
+            <details class="filtro" open>
+              <summary class="filtro__titulo">Condição</summary>
+              <div class="filtro__corpo">
+                <label class="caixa">
+                  <input type="checkbox" name="condicao" value="novo">
+                  <span>Novo (coleção atual)</span>
+                  <span class="caixa__contagem" data-contagem="condicao:novo"></span>
+                </label>
+                <label class="caixa">
+                  <input type="checkbox" name="condicao" value="drop_antigo">
+                  <span>Drop antigo</span>
+                  <span class="caixa__contagem" data-contagem="condicao:drop_antigo"></span>
+                </label>
+                <p class="filtro__nota">Drop antigo é peça de coleção anterior: nova, nunca usada.</p>
+              </div>
+            </details>
+
+            <!-- 3. Coleção -->
+            <details class="filtro" open>
+              <summary class="filtro__titulo">Coleção</summary>
+              <div class="filtro__corpo">
+                <label class="caixa">
+                  <input type="checkbox" name="colecao" value="essencial">
+                  <span>Essencial</span>
+                  <span class="caixa__contagem" data-contagem="colecao:essencial"></span>
+                </label>
+                <label class="caixa">
+                  <input type="checkbox" name="colecao" value="drop-inverno">
+                  <span>Drop Inverno</span>
+                  <span class="caixa__contagem" data-contagem="colecao:drop-inverno"></span>
+                </label>
+                <label class="caixa">
+                  <input type="checkbox" name="colecao" value="linha-neon">
+                  <span>Linha Neon</span>
+                  <span class="caixa__contagem" data-contagem="colecao:linha-neon"></span>
+                </label>
+                <label class="caixa">
+                  <input type="checkbox" name="colecao" value="basicos">
+                  <span>Básicos</span>
+                  <span class="caixa__contagem" data-contagem="colecao:basicos"></span>
+                </label>
+              </div>
+            </details>
+
+            <!-- 4. Estilo de caimento -->
+            <details class="filtro" open>
+              <summary class="filtro__titulo">Estilo de Caimento</summary>
+              <div class="filtro__corpo">
+                <label class="caixa caixa--caimento">
+                  <input type="checkbox" name="caimento" value="oversized">
+                  <span>Oversized</span>
+                  <span class="caixa__contagem" data-contagem="caimento:oversized"></span>
+                </label>
+                <label class="caixa caixa--caimento">
+                  <input type="checkbox" name="caimento" value="regular">
+                  <span>Regular</span>
+                  <span class="caixa__contagem" data-contagem="caimento:regular"></span>
+                </label>
+                <label class="caixa caixa--caimento">
+                  <input type="checkbox" name="caimento" value="slim">
+                  <span>Slim</span>
+                  <span class="caixa__contagem" data-contagem="caimento:slim"></span>
+                </label>
+                <label class="caixa caixa--caimento">
+                  <input type="checkbox" name="caimento" value="boxy">
+                  <span>Boxy</span>
+                  <span class="caixa__contagem" data-contagem="caimento:boxy"></span>
+                </label>
+                <label class="caixa caixa--caimento">
+                  <input type="checkbox" name="caimento" value="cropped">
+                  <span>Cropped</span>
+                  <span class="caixa__contagem" data-contagem="caimento:cropped"></span>
+                </label>
+                <label class="caixa caixa--caimento">
+                  <input type="checkbox" name="caimento" value="baggy">
+                  <span>Baggy</span>
+                  <span class="caixa__contagem" data-contagem="caimento:baggy"></span>
+                </label>
+              </div>
+            </details>
+
+            <!-- 5. Faixa de preço -->
+            <details class="filtro" open>
+              <summary class="filtro__titulo">Faixa de Preço</summary>
+              <div class="filtro__corpo">
+                <div class="faixa-preco">
+                  <div class="faixa-preco__trilho">
+                    <span class="faixa-preco__progresso" id="faixa-progresso"></span>
+                  </div>
+                  <label class="sr-only" for="preco-min">Preço mínimo</label>
+                  <input type="range" id="preco-min" name="preco_min" min="0" max="700" step="10" value="0">
+                  <label class="sr-only" for="preco-max">Preço máximo</label>
+                  <input type="range" id="preco-max" name="preco_max" min="0" max="700" step="10" value="700">
+                </div>
+                <div class="faixa-preco__valores">
+                  <output class="faixa-preco__valor" id="preco-min-valor" for="preco-min">R$ 0</output>
+                  <span class="texto-fraco" aria-hidden="true">até</span>
+                  <output class="faixa-preco__valor" id="preco-max-valor" for="preco-max">R$ 700</output>
+                </div>
+                <p class="filtro__nota">Preço à vista no Pix. Parcelamento em até 12x no cartão.</p>
+              </div>
+            </details>
+
+            <!-- 6. Grade de tamanhos -->
+            <details class="filtro" open>
+              <summary class="filtro__titulo">Grade de Tamanhos</summary>
+              <div class="filtro__corpo filtro__corpo--chips">
+                <label class="tamanho-chip">
+                  <input type="checkbox" name="tamanho" value="PP"><span>PP</span>
+                </label>
+                <label class="tamanho-chip">
+                  <input type="checkbox" name="tamanho" value="P"><span>P</span>
+                </label>
+                <label class="tamanho-chip">
+                  <input type="checkbox" name="tamanho" value="M"><span>M</span>
+                </label>
+                <label class="tamanho-chip">
+                  <input type="checkbox" name="tamanho" value="G"><span>G</span>
+                </label>
+                <label class="tamanho-chip">
+                  <input type="checkbox" name="tamanho" value="GG"><span>GG</span>
+                </label>
+                <label class="tamanho-chip">
+                  <input type="checkbox" name="tamanho" value="XG"><span>XG</span>
+                </label>
+                <label class="tamanho-chip">
+                  <input type="checkbox" name="tamanho" value="EXG"><span>EXG</span>
+                </label>
+                <label class="tamanho-chip">
+                  <input type="checkbox" name="tamanho" value="Unico"><span>Único</span>
+                </label>
+                <label class="tamanho-chip">
+                  <input type="checkbox" name="tamanho" value="36"><span>36</span>
+                </label>
+                <label class="tamanho-chip">
+                  <input type="checkbox" name="tamanho" value="38"><span>38</span>
+                </label>
+                <label class="tamanho-chip">
+                  <input type="checkbox" name="tamanho" value="40"><span>40</span>
+                </label>
+                <label class="tamanho-chip">
+                  <input type="checkbox" name="tamanho" value="42"><span>42</span>
+                </label>
+                <label class="tamanho-chip">
+                  <input type="checkbox" name="tamanho" value="44"><span>44</span>
+                </label>
+              </div>
+            </details>
+
+            <!-- 7. Cores -->
+            <details class="filtro" open>
+              <summary class="filtro__titulo">Cores</summary>
+              <div class="filtro__corpo filtro__corpo--cores">
+                <label class="cor-chip" title="Preto">
+                  <input type="checkbox" name="cor" value="Preto">
+                  <span style="background:#101010"></span><span class="sr-only">Preto</span>
+                </label>
+                <label class="cor-chip" title="Grafite">
+                  <input type="checkbox" name="cor" value="Cinza">
+                  <span style="background:#3f4145"></span><span class="sr-only">Grafite</span>
+                </label>
+                <label class="cor-chip" title="Cinza Mescla">
+                  <input type="checkbox" name="cor" value="Cinza">
+                  <span style="background:#b8b8b3"></span><span class="sr-only">Cinza Mescla</span>
+                </label>
+                <label class="cor-chip" title="Off-white">
+                  <input type="checkbox" name="cor" value="Off-white">
+                  <span style="background:#f2f0e9"></span><span class="sr-only">Off-white</span>
+                </label>
+                <label class="cor-chip" title="Branco">
+                  <input type="checkbox" name="cor" value="Branco">
+                  <span style="background:#ffffff"></span><span class="sr-only">Branco</span>
+                </label>
+                <label class="cor-chip" title="Verde Militar">
+                  <input type="checkbox" name="cor" value="Verde">
+                  <span style="background:#4b5340"></span><span class="sr-only">Verde Militar</span>
+                </label>
+                <label class="cor-chip" title="Verde Neon">
+                  <input type="checkbox" name="cor" value="Verde">
+                  <span style="background:#d8ff3e"></span><span class="sr-only">Verde Neon</span>
+                </label>
+                <label class="cor-chip" title="Azul Marinho">
+                  <input type="checkbox" name="cor" value="Azul">
+                  <span style="background:#1d2a44"></span><span class="sr-only">Azul Marinho</span>
+                </label>
+                <label class="cor-chip" title="Azul Jeans">
+                  <input type="checkbox" name="cor" value="Azul">
+                  <span style="background:#4a6b8a"></span><span class="sr-only">Azul Jeans</span>
+                </label>
+                <label class="cor-chip" title="Vinho">
+                  <input type="checkbox" name="cor" value="Vermelho">
+                  <span style="background:#6d1f2c"></span><span class="sr-only">Vinho</span>
+                </label>
+                <label class="cor-chip" title="Vermelho Fogo">
+                  <input type="checkbox" name="cor" value="Vermelho">
+                  <span style="background:#c0342a"></span><span class="sr-only">Vermelho Fogo</span>
+                </label>
+                <label class="cor-chip" title="Marrom Café">
+                  <input type="checkbox" name="cor" value="Marrom">
+                  <span style="background:#5a4032"></span><span class="sr-only">Marrom Café</span>
+                </label>
+                <label class="cor-chip" title="Lilás">
+                  <input type="checkbox" name="cor" value="Roxo">
+                  <span style="background:#8a6ea8"></span><span class="sr-only">Lilás</span>
+                </label>
+                <label class="cor-chip" title="Bege Areia">
+                  <input type="checkbox" name="cor" value="Bege">
+                  <span style="background:#d9cdb8"></span><span class="sr-only">Bege Areia</span>
+                </label>
+              </div>
+            </details>
+          </form>
+
+          <div class="filtros__rodape">
+            <a class="btn btn--contorno btn--bloco btn--sm" href="guia-de-medidas.html">Ver guia de medidas</a>
+          </div>
+        </aside>
+
+        <!-- ---------------- VITRINE / GRID DE PRODUTOS ---------------- -->
+        <section class="vitrine" aria-labelledby="titulo-vitrine-2">
+          <h2 class="sr-only" id="titulo-vitrine-2">Resultados</h2>
+
+          <div class="vitrine__barra">
+            <p class="vitrine__resultado" role="status" aria-live="polite" id="resultado-contagem">
+              Carregando produtos…
+            </p>
+
+            <div class="vitrine__acoes">
+              <button class="btn btn--contorno btn--sm filtros-toggle" type="button"
+                      id="abrir-filtros" aria-expanded="false" aria-controls="filtros">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor"
+                     stroke-width="1.8" aria-hidden="true">
+                  <path d="M4 6h16M7 12h10M10 18h4"></path>
+                </svg>
+                Filtros <span id="filtros-contagem" hidden></span>
+              </button>
+
+              <div class="ordenacao">
+                <label for="ordenar">Ordenar por</label>
+                <select id="ordenar">
+                  <option value="relevancia">Relevância</option>
+                  <option value="novidades">Lançamentos</option>
+                  <option value="menor-preco">Menor preço</option>
+                  <option value="maior-preco">Maior preço</option>
+                  <option value="avaliacao">Melhor avaliados</option>
+                  <option value="mais-vendidos">Mais vendidos</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-produtos" id="grid-produtos"><!-- renderizado por js/vitrine.js --></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         COLEÇÕES
+         ===================================================================== -->
+    <section class="secao secao--alt" id="colecoes" aria-labelledby="titulo-colecoes">
+      <div class="container">
+        <div class="secao__cabecalho">
+          <div>
+            <span class="etiqueta">Coleções</span>
+            <h2 class="secao__titulo" id="titulo-colecoes">Escolha por linha</h2>
+            <p class="secao__descricao">Quatro linhas com ficha técnica própria, do básico de reposição ao drop limitado.</p>
+          </div>
+          <a class="btn btn--contorno" href="#" data-pagina-futura="colecoes.html">Ver todas as coleções</a>
+        </div>
+
+        <div class="mosaico">
+          <a class="mosaico__item" href="#vitrine">
+            <img src="assets/img/drop-01.svg" alt="" width="600" height="800" loading="lazy">
+            <span class="mosaico__veu" aria-hidden="true"></span>
+            <span class="mosaico__texto">
+              <h3>Essencial</h3>
+              <p>Algodão pesado 240 g/m² · 11 peças</p>
+            </span>
+          </a>
+          <a class="mosaico__item" href="#vitrine">
+            <img src="assets/img/drop-02.svg" alt="" width="600" height="800" loading="lazy">
+            <span class="mosaico__veu" aria-hidden="true"></span>
+            <span class="mosaico__texto">
+              <h3>Drop Inverno</h3>
+              <p>Moletom flanelado 320 g/m² · 8 peças</p>
+            </span>
+          </a>
+          <a class="mosaico__item" href="#vitrine">
+            <img src="assets/img/drop-03.svg" alt="" width="600" height="800" loading="lazy">
+            <span class="mosaico__veu" aria-hidden="true"></span>
+            <span class="mosaico__texto">
+              <h3>Linha Neon</h3>
+              <p>Serigrafia à base d'água · 4 peças</p>
+            </span>
+          </a>
+          <a class="mosaico__item" href="#vitrine">
+            <img src="assets/img/drop-04.svg" alt="" width="600" height="800" loading="lazy">
+            <span class="mosaico__veu" aria-hidden="true"></span>
+            <span class="mosaico__texto">
+              <h3>Básicos</h3>
+              <p>Estoque permanente · 16 peças</p>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================================
+       FOOTER
+       ===================================================================== -->
+       <!-- #include rodape -->
+
+  <div class="toast-regiao" id="toast-regiao" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- =====================================================================
+       TEMPLATES (clonados pelo JS — nunca innerHTML com dado dinâmico)
+       ===================================================================== -->
+  <template id="tpl-card">
+    <article class="card" data-produto-id="">
+      <a class="card__midia" href="#" data-link-produto>
+        <img class="card__imagem" src="" alt="" width="480" height="600" loading="lazy" decoding="async">
+        <span class="card__badges"></span>
+        <button class="card__favorito" type="button" aria-pressed="false"
+                aria-label="Salvar na lista de desejos" data-acao="favoritar">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 20s-7-4.4-7-9.2A4 4 0 0 1 12 8a4 4 0 0 1 7 2.8C19 15.6 12 20 12 20z"></path>
+          </svg>
+        </button>
+      </a>
+      <div class="card__corpo">
+        <p class="card__marca"></p>
+        <h3 class="card__titulo"><a href="#" data-link-produto></a></h3>
+        <ul class="card__atributos"></ul>
+        <div class="card__variacoes">
+          <div class="card__tamanhos" role="group" aria-label="Escolher tamanho"></div>
+          <div class="card__cores" aria-hidden="true"></div>
+        </div>
+        <p class="card__preco">
+          <span class="preco"></span>
+          <span class="card__parcelas"></span>
+        </p>
+        <div class="card__acoes">
+          <button class="btn btn--bloco" type="button" data-acao="adicionar">Adicionar à sacola</button>
+        </div>
+        <p class="card__entrega">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"></path><circle cx="12" cy="10" r="2.4"></circle>
+          </svg>
+          <span></span>
+        </p>
+      </div>
+    </article>
+  </template>
+
+  <template id="tpl-item-sacola">
+    <li class="item-sacola" data-item-id="">
+      <img class="item-sacola__imagem" src="" alt="" width="76" height="95" loading="lazy">
+      <div class="item-sacola__info">
+        <p class="item-sacola__titulo"></p>
+        <p class="item-sacola__variacao"></p>
+        <p class="item-sacola__vendedor"></p>
+        <div class="item-sacola__rodape">
+          <div class="controle-qtd">
+            <button type="button" data-acao="diminuir" aria-label="Diminuir quantidade">−</button>
+            <output aria-live="polite"></output>
+            <button type="button" data-acao="aumentar" aria-label="Aumentar quantidade">+</button>
+          </div>
+          <span class="preco"></span>
+        </div>
+        <button class="item-sacola__remover" type="button" data-acao="remover">Remover</button>
+      </div>
+    </li>
+  </template>
+
+  <script src="js/config.js" defer></script>
+  <script src="js/dados.js" defer></script>
+  <script src="js/sacola.js" defer></script>
+  <script src="js/favoritos.js" defer></script>
+  <script src="js/frete.js" defer></script>
+  <script src="js/card-produto.js" defer></script>
+  <script src="js/vitrine.js" defer></script>
+  <script src="js/carrossel.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+/* =====================================================================================
+   DROPZ · tokens.css — Design tokens (camada 1 de 4)
+   Fonte única de verdade visual: cor, tipografia, espaço, raio, sombra, movimento.
+   Nenhum valor "mágico" deve ser escrito nas camadas seguintes.
+   ===================================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* ---------- Tipografia ---------- */
+  --fonte-sans: "Inter", "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --fonte-mono: ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --peso-regular: 400;
+  --peso-medio: 500;
+  --peso-forte: 600;
+  --peso-preto: 800;
+
+  --txt-2xs: 0.625rem;
+  --txt-xs: 0.6875rem;
+  --txt-sm: 0.8125rem;
+  --txt-base: 0.9375rem;
+  --txt-md: 1.0625rem;
+  --txt-lg: 1.3125rem;
+  --txt-xl: 1.625rem;
+  --txt-2xl: 2.125rem;
+  --txt-3xl: clamp(2.25rem, 1.2rem + 4.4vw, 3.75rem);
+  --txt-4xl: clamp(2.75rem, 1rem + 7vw, 5rem);
+
+  --altura-linha-apertada: 1.14;
+  --altura-linha-titulo: 1.28;
+  --altura-linha-base: 1.6;
+
+  --rastreio-apertado: -0.02em;
+  --rastreio-largo: 0.06em;
+  --rastreio-etiqueta: 0.14em;
+
+  /* ---------- Cores ---------- */
+  --cor-fundo: #ffffff;
+  --cor-fundo-alt: #f4f4f1;
+  --cor-fundo-escuro: #0e0e0e;
+  --cor-superficie: #ffffff;
+  --cor-superficie-2: #fafaf8;
+
+  --cor-tinta: #0e0e0e;
+  --cor-tinta-suave: #5f5f5a;
+  --cor-tinta-fraca: #8d8d86;
+
+  --cor-linha: #e8e8e2;
+  --cor-linha-forte: #d3d3cb;
+
+  --cor-acento: #0e0e0e;
+  --cor-acento-tinta: #ffffff;
+  --cor-acento-hover: #2a2a2a;
+
+  --cor-neon: #d8ff3e;
+  --cor-neon-tinta: #0e0e0e;
+
+  --cor-sucesso: #1f7a4d;
+  --cor-alerta: #c8402f;
+  --cor-info: #2563a8;
+
+  /* ---------- Espaçamento (escala de 4px) ---------- */
+  --esp-1: 0.25rem;
+  --esp-2: 0.5rem;
+  --esp-3: 0.75rem;
+  --esp-4: 1rem;
+  --esp-5: 1.25rem;
+  --esp-6: 1.5rem;
+  --esp-7: 2rem;
+  --esp-8: 2.5rem;
+  --esp-9: 3.5rem;
+  --esp-10: 5rem;
+
+  /* ---------- Raios ---------- */
+  --raio-xs: 6px;
+  --raio-sm: 10px;
+  --raio-md: 14px;
+  --raio-lg: 20px;
+  --raio-xl: 28px;
+  --raio-pill: 999px;
+
+  /* ---------- Sombras ---------- */
+  --sombra-1: 0 1px 2px rgba(14, 14, 14, 0.05);
+  --sombra-2: 0 10px 26px -14px rgba(14, 14, 14, 0.24);
+  --sombra-3: 0 26px 60px -28px rgba(14, 14, 14, 0.32);
+  --anel-foco: 0 0 0 3px rgba(14, 14, 14, 0.28);
+
+  /* ---------- Métricas de layout ---------- */
+  --altura-header: 74px;
+  --largura-container: 1400px;
+  --gutter: clamp(1rem, 0.35rem + 2.4vw, 2.5rem);
+  --largura-sidebar: 272px;
+  --largura-drawer: 420px;
+
+  /* ---------- Camadas ---------- */
+  --z-conteudo: 1;
+  --z-sticky: 50;
+  --z-header: 100;
+  --z-overlay: 190;
+  --z-drawer: 200;
+  --z-toast: 300;
+
+  /* ---------- Movimento ---------- */
+  --transicao-rapida: 140ms cubic-bezier(0.2, 0.6, 0.25, 1);
+  --transicao: 200ms cubic-bezier(0.2, 0.6, 0.25, 1);
+  --transicao-lenta: 420ms cubic-bezier(0.22, 0.7, 0.2, 1);
+}
+
+@media (max-width: 860px) {
+  :root {
+    --altura-header: 64px;
+    --largura-drawer: 100%;
+  }
+}
+
+/* Usuário que pediu menos animação recebe menos animação. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transicao-rapida: 1ms;
+    --transicao: 1ms;
+    --transicao-lenta: 1ms;
+  }
+}

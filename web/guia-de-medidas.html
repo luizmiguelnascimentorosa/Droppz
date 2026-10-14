@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guia de Medidas e Caimento — SUA MARCA</title>
+  <meta name="description" content="Aprenda a medir sua peça e escolha o tamanho certo: tabela de medidas de camisetas oversized, moletons, calças cargo e bonés, com dicas de caimento.">
+  <meta name="theme-color" content="#0e0e0e">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <a class="pular-para-conteudo" href="#conteudo-principal">Pular para o conteúdo principal</a>
+
+  <!-- =====================================================================
+       HEADER GLOBAL PERSISTENTE (mesma estrutura do index.html)
+       ===================================================================== -->
+  <header class="site-header" id="topo">
+    <div class="container header">
+      <a class="marca" href="index.html" aria-label="Página inicial">
+        SUA MARCA<span class="marca__ponto" aria-hidden="true">.</span>
+        <span class="marca__slogan">streetwear de marca própria</span>
+      </a>
+
+      <form class="busca" id="form-busca" role="search" action="#" method="get">
+        <svg class="busca__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path>
+        </svg>
+        <label class="sr-only" for="entrada-busca">Buscar produtos</label>
+        <input class="busca__entrada" id="entrada-busca" name="q" type="search"
+               placeholder="Busque por camiseta, moletom, cargo, coleção…" autocomplete="off">
+        <span class="busca__atalho" aria-hidden="true">/</span>
+        <button class="busca__enviar" type="submit" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path>
+          </svg>
+        </button>
+      </form>
+
+      <nav class="header__acoes" aria-label="Navegação rápida e conta">
+        <ul class="header__links">
+          <li><a href="index.html#colecoes">Coleções</a></li>
+          <li><a href="#" data-pagina-futura="blog.html">Blog</a></li>
+          <li><a href="mailto:contato@suamarca.com.br">Contato</a></li>
+        </ul>
+
+        <button class="icone-btn header__menu" type="button" id="abrir-menu"
+                aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-lateral">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M3 6h18M3 12h18M3 18h18"></path>
+          </svg>
+        </button>
+
+        <a class="icone-btn" href="conta.html" aria-label="Minha conta e meus pedidos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <circle cx="12" cy="8" r="3.6"></circle>
+            <path d="M4.8 20.2a7.2 7.2 0 0 1 14.4 0"></path>
+          </svg>
+        </a>
+
+        <button class="icone-btn" type="button" id="abrir-sacola"
+                aria-label="Abrir sacola de compras" aria-expanded="false" aria-controls="drawer-sacola">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <path d="M5.5 8h13l-1 12.2a1.6 1.6 0 0 1-1.6 1.5H8.1a1.6 1.6 0 0 1-1.6-1.5z"></path>
+            <path d="M9 8V6.4a3 3 0 0 1 6 0V8"></path>
+          </svg>
+          <span class="icone-btn__badge" id="sacola-badge" data-vazio="true" aria-hidden="true">0</span>
+          <span class="sr-only" id="sacola-anuncio" role="status"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="overlay" id="overlay" hidden></div>
+
+  <!-- Drawer da sacola (a mesma estrutura do index.html — é o preço de não ter include) -->
+  <aside class="drawer" id="drawer-sacola" role="dialog" aria-modal="true"
+         aria-labelledby="titulo-sacola" hidden>
+    <header class="drawer__cabecalho">
+      <div>
+        <h2 class="drawer__titulo" id="titulo-sacola">Sua sacola</h2>
+        <p class="texto-xs texto-fraco" id="sacola-resumo">Nenhum item</p>
+      </div>
+      <button class="fechar-btn" type="button" data-fechar="drawer-sacola" aria-label="Fechar sacola">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18"></path>
+        </svg>
+      </button>
+    </header>
+    <div class="drawer__corpo" id="sacola-corpo"></div>
+    <footer class="drawer__rodape">
+      <div class="linha-total">
+        <span>Subtotal</span>
+        <span class="preco" id="sacola-subtotal">R$ 0,00</span>
+      </div>
+      <div class="linha-total">
+        <span>Frete</span>
+        <span class="texto-xs" id="sacola-frete">informe o CEP no checkout</span>
+      </div>
+      <div class="linha-total linha-total--destaque">
+        <span>Total</span>
+        <span class="preco" id="sacola-total">R$ 0,00</span>
+      </div>
+      <a class="btn btn--bloco" href="checkout.html" id="ir-para-checkout">Finalizar compra</a>
+      <button class="btn btn--fantasma btn--bloco" type="button" data-fechar="drawer-sacola">Continuar comprando</button>
+    </footer>
+  </aside>
+
+  <aside class="filtros" id="menu-lateral" role="dialog" aria-modal="true" aria-label="Menu de navegação" hidden>
+    <div class="filtros__cabecalho">
+      <h2 class="filtros__titulo">Navegar</h2>
+      <button class="fechar-btn" type="button" data-fechar="menu-lateral" aria-label="Fechar menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18"></path>
+        </svg>
+      </button>
+    </div>
+    <nav aria-label="Menu principal">
+      <ul class="rodape__lista">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="index.html#colecoes">Coleções</a></li>
+        <li><a href="index.html#vitrine">Todos os produtos</a></li>
+        <li><a href="guia-de-medidas.html" aria-current="page">Guia de medidas</a></li>
+        <li><a href="#" data-pagina-futura="sobre.html">Sobre a marca</a></li>
+        <li><a href="conta.html">Minha conta</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main id="conteudo-principal">
+    <div class="container pagina">
+      <nav class="trilha" aria-label="Você está em">
+        <a href="index.html">Início</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Guia de medidas</span>
+      </nav>
+
+      <div class="titulo-pagina" style="margin-block: var(--esp-4) var(--esp-6)">
+        <h1>Guia de medidas e caimento</h1>
+        <p class="texto-suave">
+          O jeito certo de acertar o tamanho não é medir o corpo: é medir uma peça que você já
+          veste bem e comparar com a tabela. Abaixo, as medidas reais de cada modelagem —
+          tiradas da peça estendida na mesa, de costura a costura.
+        </p>
+      </div>
+
+      <!-- Navegação por âncora: cada link aponta para o id de uma seção abaixo -->
+      <nav class="nav-ancoras" aria-label="Atalhos deste guia">
+        <a class="chip" href="#como-medir">Como medir</a>
+        <a class="chip" href="#camisetas">Camisetas</a>
+        <a class="chip" href="#regatas">Regatas</a>
+        <a class="chip" href="#moletons">Moletons</a>
+        <a class="chip" href="#calcas">Calças</a>
+        <a class="chip" href="#bones">Bonés</a>
+        <a class="chip" href="#caimento">Qual caimento</a>
+        <a class="chip" href="#duvidas">Dúvidas frequentes</a>
+      </nav>
+
+      <!-- ================= COMO MEDIR ================= -->
+      <section class="bloco-editorial ancora" id="como-medir" aria-labelledby="titulo-como-medir">
+        <div class="bloco-editorial__cabecalho">
+          <span class="etiqueta">Passo a passo</span>
+          <h2 id="titulo-como-medir">Como medir a sua peça</h2>
+          <p>Quatro passos, dois minutos e uma fita métrica. É o método que usamos para conferir cada lote.</p>
+        </div>
+
+        <ol class="passos">
+          <li class="passo">
+            <span class="passo__numero">PASSO 01</span>
+            <h3 class="passo__titulo">Escolha uma peça que já veste bem</h3>
+            <p class="passo__texto">
+              Não meça o seu corpo: meça a roupa. Pegue a camiseta ou calça que você mais gosta
+              de usar e que cai do jeito que você quer.
+            </p>
+          </li>
+          <li class="passo">
+            <span class="passo__numero">PASSO 02</span>
+            <h3 class="passo__titulo">Estenda na mesa, sem esticar</h3>
+            <p class="passo__texto">
+              Alise os vincos com a mão e deixe o tecido relaxado. Se você esticar, a medida mente:
+              algodão pesado cede cerca de 1 cm a cada 10 cm de tecido forçado.
+            </p>
+          </li>
+          <li class="passo">
+            <span class="passo__numero">PASSO 03</span>
+            <h3 class="passo__titulo">Meça de costura a costura</h3>
+            <p class="passo__texto">
+              Use a fita métrica na horizontal e na vertical, sempre entre as costuras:
+              ombro (A), largura do tórax (B) e comprimento (C).
+            </p>
+          </li>
+          <li class="passo">
+            <span class="passo__numero">PASSO 04</span>
+            <h3 class="passo__titulo">Compare com a tabela da peça</h3>
+            <p class="passo__texto">
+              Cada modelo tem a sua própria tabela — um hoodie e uma camiseta no mesmo tamanho
+              têm medidas diferentes. Se ficar entre dois tamanhos, veja a seção de caimento.
+            </p>
+          </li>
+        </ol>
+
+        <figure class="figura">
+          <img src="assets/img/medidas-camiseta.svg"
+               alt="Desenho técnico de uma camiseta estendida mostrando onde medir: A no ombro, B na largura do tórax e C no comprimento"
+               width="800" height="620" loading="lazy" decoding="async">
+          <figcaption>
+            Camiseta oversized estendida na mesa: A = ombro · B = largura do tórax (peça fechada) ·
+            C = comprimento total. As medidas abaixo seguem exatamente estas três cotas.
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- ================= CAMISETAS ================= -->
+      <section class="bloco-editorial ancora" id="camisetas" aria-labelledby="titulo-camisetas">
+        <div class="bloco-editorial__cabecalho">
+          <span class="etiqueta">Tabela 01</span>
+          <h2 id="titulo-camisetas">Camisetas oversized</h2>
+          <p>Modelagem ampla com ombro caído. Todas em algodão penteado 240 g/m².</p>
+        </div>
+
+        <div class="tabela-rolagem" role="region" tabindex="0"
+             aria-label="Tabela de medidas das camisetas oversized (arraste ou use as setas para ver todas as colunas)">
+          <table class="tabela-medidas">
+            <caption>Medidas em centímetros, da peça estendida na mesa.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Tamanho</th>
+                <th scope="col">Ombro (A)</th>
+                <th scope="col">Tórax (B)</th>
+                <th scope="col">Comprimento (C)</th>
+                <th scope="col">Equivale a</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">PP</th>
+                <td>50</td><td>100</td><td>68</td><td>36</td>
+              </tr>
+              <tr>
+                <th scope="row">P</th>
+                <td>52</td><td>106</td><td>70</td><td>38</td>
+              </tr>
+              <tr class="linha-destaque">
+                <th scope="row">M</th>
+                <td>54</td><td>112</td><td>72</td><td>40</td>
+              </tr>
+              <tr>
+                <th scope="row">G</th>
+                <td>56</td><td>118</td><td>74</td><td>42</td>
+              </tr>
+              <tr>
+                <th scope="row">GG</th>
+                <td>58</td><td>124</td><td>76</td><td>44</td>
+              </tr>
+              <tr>
+                <th scope="row">XG</th>
+                <td>60</td><td>130</td><td>78</td><td>46</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="filtro__nota">
+          A linha destacada é o tamanho mais vendido. Como a modelagem é oversized, compre o seu
+          tamanho de sempre — ela já veste ampla.
+        </p>
+      </section>
+
+      <!-- ================= REGATAS ================= -->
+      <section class="bloco-editorial ancora" id="regatas" aria-labelledby="titulo-regatas">
+        <div class="bloco-editorial__cabecalho">
+          <span class="etiqueta">Tabela 02</span>
+          <h2 id="titulo-regatas">Regatas caneladas</h2>
+          <p>Malha canelada de algodão 180 g/m² com caimento slim. Sem ombro: mede-se pelo busto.</p>
+        </div>
+
+        <div class="tabela-rolagem" role="region" tabindex="0"
+             aria-label="Tabela de medidas das regatas caneladas (arraste ou use as setas para ver todas as colunas)">
+          <table class="tabela-medidas">
+            <caption>Medidas em centímetros, da peça fechada e estendida na mesa.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Tamanho</th>
+                <th scope="col">Busto (B)</th>
+                <th scope="col">Comprimento (C)</th>
+                <th scope="col">Cava</th>
+                <th scope="col">Equivale a</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">P</th>
+                <td>88</td><td>62</td><td>22</td><td>38</td>
+              </tr>
+              <tr class="linha-destaque">
+                <th scope="row">M</th>
+                <td>94</td><td>64</td><td>23</td><td>40</td>
+              </tr>
+              <tr>
+                <th scope="row">G</th>
+                <td>100</td><td>66</td><td>24</td><td>42</td>
+              </tr>
+              <tr>
+                <th scope="row">GG</th>
+                <td>106</td><td>68</td><td>25</td><td>44</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="filtro__nota">
+          A malha canelada tem elasticidade média: ela estica cerca de 4 cm de busto sem marcar.
+          Quem prefere folga deve considerar um tamanho acima — não recomendamos, porque o
+          caimento slim é o ponto da peça.
+        </p>
+      </section>
+
+      <!-- ================= MOLETONS ================= -->
+      <section class="bloco-editorial ancora" id="moletons" aria-labelledby="titulo-moletons">
+        <div class="bloco-editorial__cabecalho">
+          <span class="etiqueta">Tabela 03</span>
+          <h2 id="titulo-moletons">Moletons (hoodie e crewneck)</h2>
+          <p>Moletom flanelado 320 g/m², interior felpado. Caimento regular, tronco reto.</p>
+        </div>
+
+        <div class="tabela-rolagem" role="region" tabindex="0"
+             aria-label="Tabela de medidas dos moletons (arraste ou use as setas para ver todas as colunas)">
+          <table class="tabela-medidas">
+            <caption>Medidas em centímetros, da peça estendida na mesa.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Tamanho</th>
+                <th scope="col">Ombro (A)</th>
+                <th scope="col">Tórax (B)</th>
+                <th scope="col">Comprimento (C)</th>
+                <th scope="col">Equivale a</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">P</th>
+                <td>54</td><td>112</td><td>66</td><td>38</td>
+              </tr>
+              <tr>
+                <th scope="row">M</th>
+                <td>56</td><td>118</td><td>68</td><td>40</td>
+              </tr>
+              <tr>
+                <th scope="row">G</th>
+                <td>58</td><td>124</td><td>70</td><td>42</td>
+              </tr>
+              <tr>
+                <th scope="row">GG</th>
+                <td>60</td><td>130</td><td>72</td><td>44</td>
+              </tr>
+              <tr>
+                <th scope="row">XG</th>
+                <td>62</td><td>136</td><td>74</td><td>46</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="filtro__nota">
+          Vai usar por cima de outra camiseta? Some 6 cm ao tórax da peça de baixo e compare com
+          a coluna B — provavelmente o tamanho acima é o certo.
+        </p>
+      </section>
+
+      <!-- ================= CALÇAS ================= -->
+      <section class="bloco-editorial ancora" id="calcas" aria-labelledby="titulo-calcas">
+        <div class="bloco-editorial__cabecalho">
+          <span class="etiqueta">Tabela 04</span>
+          <h2 id="titulo-calcas">Calças cargo e jeans (grade numérica)</h2>
+          <p>Sarja ripstop com elastano e denim 14 oz. A numeração é a mesma do jeans tradicional.</p>
+        </div>
+
+        <div class="tabela-rolagem" role="region" tabindex="0"
+             aria-label="Tabela de medidas das calças cargo e jeans (arraste ou use as setas para ver todas as colunas)">
+          <table class="tabela-medidas">
+            <caption>Medidas em centímetros, da peça fechada e estendida na mesa.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Tamanho</th>
+                <th scope="col">Cintura</th>
+                <th scope="col">Quadril</th>
+                <th scope="col">Comprimento</th>
+                <th scope="col">Entreperna</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">38</th>
+                <td>78</td><td>100</td><td>102</td><td>76</td>
+              </tr>
+              <tr class="linha-destaque">
+                <th scope="row">40</th>
+                <td>82</td><td>104</td><td>103</td><td>77</td>
+              </tr>
+              <tr>
+                <th scope="row">42</th>
+                <td>86</td><td>108</td><td>104</td><td>78</td>
+              </tr>
+              <tr>
+                <th scope="row">44</th>
+                <td>90</td><td>112</td><td>105</td><td>79</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="filtro__nota">
+          Nas calças <strong>baggy</strong>, a cintura é alta e a perna é larga: se você está entre
+          dois números, fique com o menor. Nas <strong>cargo</strong> de sarja, o elastano dá
+          2 cm de folga.
+        </p>
+      </section>
+
+      <!-- ================= BONÉS ================= -->
+      <section class="bloco-editorial ancora" id="bones" aria-labelledby="titulo-bones">
+        <div class="bloco-editorial__cabecalho">
+          <span class="etiqueta">Tabela 05</span>
+          <h2 id="titulo-bones">Bonés</h2>
+          <p>Aba curva com fivela de encaixe: um tamanho que se ajusta a quase todo mundo.</p>
+        </div>
+
+        <div class="tabela-rolagem" role="region" tabindex="0"
+             aria-label="Tabela de medidas dos bonés">
+          <table class="tabela-medidas">
+            <caption>Medidas em centímetros.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Tamanho</th>
+                <th scope="col">Circunferência</th>
+                <th scope="col">Altura da copa</th>
+                <th scope="col">Aba</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Único</th>
+                <td>54 a 60</td><td>12</td><td>7</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="filtro__nota">
+          Meça a circunferência da cabeça com a fita passando 1 cm acima da orelha. Acima de 60 cm,
+          fale com o atendimento: ajustamos a fivela na costura.
+        </p>
+      </section>
+
+      <!-- ================= CAIMENTO ================= -->
+      <section class="bloco-editorial ancora" id="caimento" aria-labelledby="titulo-caimento">
+        <div class="bloco-editorial__cabecalho">
+          <span class="etiqueta">Escolha consciente</span>
+          <h2 id="titulo-caimento">Qual caimento é o seu</h2>
+          <p>O mesmo tamanho veste diferente em cada modelagem. Este é o resumo honesto de cada uma.</p>
+        </div>
+
+        <div class="pilares">
+          <article class="pilar">
+            <span class="pilar__numero">OVERSIZED</span>
+            <h3 class="pilar__titulo">Amplo de propósito</h3>
+            <p class="pilar__texto">
+              Ombro caído e corpo largo. Fica solto sem parecer roupa emprestada.
+            </p>
+            <ul>
+              <li><span aria-hidden="true">→</span><span><strong>Tamanho:</strong> o seu de sempre.</span></li>
+              <li><span aria-hidden="true">→</span><span><strong>Quem quer justo:</strong> desça um tamanho.</span></li>
+            </ul>
+          </article>
+
+          <article class="pilar">
+            <span class="pilar__numero">REGULAR</span>
+            <h3 class="pilar__titulo">Caimento fiel</h3>
+            <p class="pilar__texto">
+              Tronco reto, sem sobra e sem aperto. É a modelagem dos moletons e da maioria das calças.
+            </p>
+            <ul>
+              <li><span aria-hidden="true">→</span><span><strong>Tamanho:</strong> o seu de sempre.</span></li>
+              <li><span aria-hidden="true">→</span><span><strong>Entre dois:</strong> suba um, para não apertar no ombro.</span></li>
+            </ul>
+          </article>
+
+          <article class="pilar">
+            <span class="pilar__numero">BAGGY</span>
+            <h3 class="pilar__titulo">Perna larga, cintura alta</h3>
+            <p class="pilar__texto">
+              Sobra proposital no comprimento, para acumular no tênis. Só nas calças.
+            </p>
+            <ul>
+              <li><span aria-hidden="true">→</span><span><strong>Tamanho:</strong> entre dois, fique com o menor.</span></li>
+              <li><span aria-hidden="true">→</span><span><strong>Altura:</strong> abaixo de 1,70 m, considere ajustar a barra.</span></li>
+            </ul>
+          </article>
+
+          <article class="pilar">
+            <span class="pilar__numero">CROPPED</span>
+            <h3 class="pilar__titulo">Comprimento curto</h3>
+            <p class="pilar__texto">
+              Termina na cintura. Se você tem tronco longo, o comprimento muda bastante de tamanho para tamanho.
+            </p>
+            <ul>
+              <li><span aria-hidden="true">→</span><span><strong>Tamanho:</strong> suba um se não quiser barriga de fora.</span></li>
+              <li><span aria-hidden="true">→</span><span><strong>Atenção:</strong> compare sempre pela coluna C.</span></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- ================= DÚVIDAS ================= -->
+      <section class="bloco-editorial ancora" id="duvidas" aria-labelledby="titulo-duvidas">
+        <div class="bloco-editorial__cabecalho">
+          <span class="etiqueta">Antes de comprar</span>
+          <h2 id="titulo-duvidas">Dúvidas frequentes</h2>
+        </div>
+
+        <div class="faq">
+          <details open>
+            <summary>As medidas são da peça ou do meu corpo?</summary>
+            <div class="faq__resposta">
+              Da <strong>peça</strong>, sempre. A tabela mostra a roupa estendida na mesa. Para
+              comparar com o seu corpo, some de 4 a 6 cm de folga ao tórax — é o espaço que a roupa
+              precisa para não marcar.
+            </div>
+          </details>
+
+          <details>
+            <summary>Estou entre dois tamanhos. Qual escolho?</summary>
+            <div class="faq__resposta">
+              Depende da modelagem: em <strong>oversized</strong> e <strong>moletons</strong>, fique
+              com o maior (você sempre pode usar solto). Em <strong>regular</strong>,
+              <strong>slim</strong> e nas calças <strong>baggy</strong>, fique com o menor, porque
+              o tecido cede com o uso.
+            </div>
+          </details>
+
+          <details>
+            <summary>E se eu errar o tamanho?</summary>
+            <div class="faq__resposta">
+              Você tem <strong>30 dias</strong> para trocar. A primeira troca de tamanho sai por
+              nossa conta: mandamos a etiqueta de postagem e você só leva o pacote na agência.
+              A peça precisa estar sem uso, com a etiqueta presa.
+            </div>
+          </details>
+
+          <details>
+            <summary>O algodão pesado encolhe na lavagem?</summary>
+            <div class="faq__resposta">
+              Nosso algodão penteado é pré-encolhido: a variação fica dentro de 2%. Mesmo assim,
+              lave do avesso em água fria e evite secadora — é o calor que deforma a malha.
+            </div>
+          </details>
+
+          <details>
+            <summary>Vocês fazem tamanho sob medida?</summary>
+            <div class="faq__resposta">
+              Fazemos para pedidos de <strong>atacado</strong> a partir de 30 peças por modelo.
+              Escreva para o atendimento com as medidas que você precisa.
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- ================= CHAMADA FINAL ================= -->
+      <section class="bloco-editorial" aria-labelledby="titulo-ajuda">
+        <div class="chamada">
+          <span class="etiqueta">Ainda em dúvida?</span>
+          <h2 id="titulo-ajuda">Manda a medida que a gente responde</h2>
+          <p>
+            Se você mediu a sua peça e ficou na dúvida, envie as três medidas (A, B e C) para o
+            atendimento junto com o modelo que você quer. Respondemos em até 1 dia útil dizendo
+            qual tamanho serve melhor no seu caso.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:var(--esp-3)">
+            <a class="btn" href="mailto:contato@suamarca.com.br?subject=D%C3%BAvida%20de%20tamanho">Falar com o atendimento</a>
+            <a class="btn btn--contorno" href="index.html#vitrine">Voltar aos produtos</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- =====================================================================
+       FOOTER (mesma estrutura do index.html)
+       ===================================================================== -->
+  <footer class="rodape">
+    <div class="container">
+      <div class="rodape__grade">
+        <div class="rodape__marca">
+          <span class="marca">SUA MARCA<span class="marca__ponto" aria-hidden="true">.</span></span>
+          <p class="rodape__texto">
+            Marca própria de streetwear. Produção nacional, estoque próprio e ficha técnica
+            transparente: você sabe exatamente o tecido e a gramatura do que está comprando.
+          </p>
+          <form class="rodape__newsletter" style="margin-top: var(--esp-5)" id="form-newsletter">
+            <label class="rodape__titulo" for="newsletter-email">Avise-me dos próximos drops</label>
+            <input class="campo__entrada" id="newsletter-email" type="email" name="email"
+                   placeholder="seu@email.com" autocomplete="email" required>
+            <button class="btn btn--neon" type="submit">Quero receber</button>
+          </form>
+        </div>
+
+        <nav aria-labelledby="rodape-comprar">
+          <h2 class="rodape__titulo" id="rodape-comprar">Comprar</h2>
+          <ul class="rodape__lista">
+            <li><a href="index.html#vitrine">Todos os produtos</a></li>
+            <li><a href="index.html#vitrine">Camisetas oversized</a></li>
+            <li><a href="index.html#vitrine">Moletons</a></li>
+            <li><a href="index.html#vitrine">Calças cargo</a></li>
+            <li><a href="index.html#vitrine">Jaquetas</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="rodape-ajuda">
+          <h2 class="rodape__titulo" id="rodape-ajuda">Ajuda</h2>
+          <ul class="rodape__lista">
+            <li><a href="guia-de-medidas.html" aria-current="page">Guia de medidas</a></li>
+            <li><a href="#" data-pagina-futura="trocas.html">Trocas e devoluções</a></li>
+            <li><a href="#" data-pagina-futura="frete.html">Prazos e frete</a></li>
+            <li><a href="conta-pedidos.html">Acompanhar meu pedido</a></li>
+            <li><a href="mailto:contato@suamarca.com.br">contato@suamarca.com.br</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="rodape-loja">
+          <h2 class="rodape__titulo" id="rodape-loja">A marca</h2>
+          <ul class="rodape__lista">
+            <li><a href="#" data-pagina-futura="sobre.html">Sobre nós</a></li>
+            <li><a href="#" data-pagina-futura="blog.html">Blog</a></li>
+            <li><a href="#" data-pagina-futura="privacidade.html">Privacidade e LGPD</a></li>
+            <li><a href="#" data-pagina-futura="termos.html">Termos de uso</a></li>
+            <li><a href="#" data-pagina-futura="atacado.html">Venda no atacado</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="rodape__base">
+        <p>© 2026 Sua Marca Confecções Ltda. CNPJ 00.000.000/0001-00 · São Paulo, SP</p>
+        <div class="rodape__pagamentos">
+          <span class="rodape__selo">Pix</span>
+          <span class="rodape__selo">Visa</span>
+          <span class="rodape__selo">Master</span>
+          <span class="rodape__selo">Elo</span>
+          <span class="rodape__selo">Compra segura</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-regiao" id="toast-regiao" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Este template é usado pela sacola do header (js/app.js) -->
+  <template id="tpl-item-sacola">
+    <li class="item-sacola" data-item-id="">
+      <img class="item-sacola__imagem" src="" alt="" width="76" height="95" loading="lazy">
+      <div class="item-sacola__info">
+        <p class="item-sacola__titulo"></p>
+        <p class="item-sacola__variacao"></p>
+        <p class="item-sacola__vendedor"></p>
+        <div class="item-sacola__rodape">
+          <div class="controle-qtd">
+            <button type="button" data-acao="diminuir" aria-label="Diminuir quantidade">−</button>
+            <output aria-live="polite"></output>
+            <button type="button" data-acao="aumentar" aria-label="Aumentar quantidade">+</button>
+          </div>
+          <span class="preco"></span>
+        </div>
+        <button class="item-sacola__remover" type="button" data-acao="remover">Remover</button>
+      </div>
+    </li>
+  </template>
+
+  <!-- Esta página NÃO carrega dados.js, vitrine.js nem carrossel.js:
+       ela não mostra produtos, não tem filtro e não tem banner. -->
+  <script src="js/config.js" defer></script>
+  <script src="js/sacola.js" defer></script>
+  <script src="js/frete.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+  <div class="overlay" id="overlay" hidden></div>
+
+  <!-- =====================================================================
+       DRAWER DA SACOLA
+       ===================================================================== -->
+  <aside class="drawer" id="drawer-sacola" role="dialog" aria-modal="true"
+         aria-labelledby="titulo-sacola" hidden>
+    <header class="drawer__cabecalho">
+      <div>
+        <h2 class="drawer__titulo" id="titulo-sacola">Sua sacola</h2>
+        <p class="texto-xs texto-fraco" id="sacola-resumo">Nenhum item</p>
+      </div>
+      <button class="fechar-btn" type="button" data-fechar="drawer-sacola" aria-label="Fechar sacola">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18"></path>
+        </svg>
+      </button>
+    </header>
+
+    <div class="drawer__corpo" id="sacola-corpo"><!-- renderizado por js/app.js --></div>
+
+    <footer class="drawer__rodape">
+      <div class="linha-total">
+        <span>Subtotal</span>
+        <span class="preco" id="sacola-subtotal">R$ 0,00</span>
+      </div>
+      <div class="linha-total">
+        <span>Frete</span>
+        <span class="texto-xs" id="sacola-frete">informe o CEP no checkout</span>
+      </div>
+      <div class="linha-total linha-total--destaque">
+        <span>Total</span>
+        <span class="preco" id="sacola-total">R$ 0,00</span>
+      </div>
+      <a class="btn btn--bloco" href="checkout.html" id="ir-para-checkout">Finalizar compra</a>
+      <button class="btn btn--fantasma btn--bloco" type="button" data-fechar="drawer-sacola">Continuar comprando</button>
+    </footer>
+  </aside>
+
+  <!-- Menu lateral mobile -->
+  <aside class="filtros" id="menu-lateral" role="dialog" aria-modal="true" aria-label="Menu de navegação" hidden>
+    <div class="filtros__cabecalho">
+      <h2 class="filtros__titulo">Navegar</h2>
+      <button class="fechar-btn" type="button" data-fechar="menu-lateral" aria-label="Fechar menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18"></path>
+        </svg>
+      </button>
+    </div>
+    <nav aria-label="Menu principal">
+      <ul class="rodape__lista">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="#colecoes">Coleções</a></li>
+        <li><a href="#vitrine">Todos os produtos</a></li>
+        <li><a href="#" data-pagina-futura="sobre.html">Sobre a marca</a></li>
+        <li><a href="guia-de-medidas.html">Guia de medidas</a></li>
+        <li><a href="conta.html">Minha conta</a></li>
+      </ul>
+    </nav>
+  </aside>

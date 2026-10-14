@@ -1,0 +1,58 @@
+<header class="site-header" id="topo">
+    <div class="container header">
+      <!-- ⚠️ TROQUE A MARCA AQUI (2/3) -->
+      <a class="marca" href="index.html" aria-label="Página inicial">
+        SUA MARCA<span class="marca__ponto" aria-hidden="true">.</span>
+        <span class="marca__slogan">streetwear de marca própria</span>
+      </a>
+
+      <form class="busca" id="form-busca" role="search" action="#" method="get">
+        <svg class="busca__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path>
+        </svg>
+        <label class="sr-only" for="entrada-busca">Buscar produtos</label>
+        <input class="busca__entrada" id="entrada-busca" name="q" type="search"
+               placeholder="Busque por camiseta, moletom, cargo, coleção…" autocomplete="off"
+               aria-describedby="busca-ajuda">
+        <span class="busca__atalho" aria-hidden="true">/</span>
+        <button class="busca__enviar" type="submit" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path>
+          </svg>
+        </button>
+        <span class="sr-only" id="busca-ajuda">Pressione a tecla barra para focar a busca</span>
+      </form>
+
+      <nav class="header__acoes" aria-label="Navegação rápida e conta">
+        <ul class="header__links">
+          <li><a href="#colecoes">Coleções</a></li>
+          <li><a href="#" data-pagina-futura="blog.html">Blog</a></li>
+          <li><a href="mailto:contato@suamarca.com.br">Contato</a></li>
+        </ul>
+
+        <button class="icone-btn header__menu" type="button" id="abrir-menu"
+                aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-lateral">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M3 6h18M3 12h18M3 18h18"></path>
+          </svg>
+        </button>
+
+        <a class="icone-btn" href="conta.html" aria-label="Minha conta e meus pedidos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <circle cx="12" cy="8" r="3.6"></circle>
+            <path d="M4.8 20.2a7.2 7.2 0 0 1 14.4 0"></path>
+          </svg>
+        </a>
+
+        <button class="icone-btn" type="button" id="abrir-sacola"
+                aria-label="Abrir sacola de compras" aria-expanded="false" aria-controls="drawer-sacola">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <path d="M5.5 8h13l-1 12.2a1.6 1.6 0 0 1-1.6 1.5H8.1a1.6 1.6 0 0 1-1.6-1.5z"></path>
+            <path d="M9 8V6.4a3 3 0 0 1 6 0V8"></path>
+          </svg>
+          <span class="icone-btn__badge" id="sacola-badge" data-vazio="true" aria-hidden="true">0</span>
+          <span class="sr-only" id="sacola-anuncio" role="status"></span>
+        </button>
+      </nav>
+    </div>
+  </header>

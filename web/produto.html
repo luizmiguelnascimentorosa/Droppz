@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Produto — SUA MARCA</title>
+  <meta name="description" content="Detalhes, ficha técnica, tabela de medidas e cálculo de frete do produto.">
+  <meta name="theme-color" content="#0e0e0e">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <a class="pular-para-conteudo" href="#conteudo-principal">Pular para o conteúdo principal</a>
+
+  <!-- =====================================================================
+       HEADER GLOBAL PERSISTENTE (mesma estrutura das outras páginas)
+       ===================================================================== -->
+  <header class="site-header" id="topo">
+    <div class="container header">
+      <a class="marca" href="index.html" aria-label="Página inicial">
+        SUA MARCA<span class="marca__ponto" aria-hidden="true">.</span>
+        <span class="marca__slogan">streetwear de marca própria</span>
+      </a>
+
+      <form class="busca" id="form-busca" role="search" action="#" method="get">
+        <svg class="busca__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path>
+        </svg>
+        <label class="sr-only" for="entrada-busca">Buscar produtos</label>
+        <input class="busca__entrada" id="entrada-busca" name="q" type="search"
+               placeholder="Busque por camiseta, moletom, cargo, coleção…" autocomplete="off">
+        <span class="busca__atalho" aria-hidden="true">/</span>
+        <button class="busca__enviar" type="submit" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path>
+          </svg>
+        </button>
+      </form>
+
+      <nav class="header__acoes" aria-label="Navegação rápida e conta">
+        <ul class="header__links">
+          <li><a href="index.html#colecoes">Coleções</a></li>
+          <li><a href="#" data-pagina-futura="blog.html">Blog</a></li>
+          <li><a href="mailto:contato@suamarca.com.br">Contato</a></li>
+        </ul>
+
+        <button class="icone-btn header__menu" type="button" id="abrir-menu"
+                aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-lateral">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M3 6h18M3 12h18M3 18h18"></path>
+          </svg>
+        </button>
+
+        <a class="icone-btn" href="conta.html" aria-label="Minha conta e meus pedidos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <circle cx="12" cy="8" r="3.6"></circle>
+            <path d="M4.8 20.2a7.2 7.2 0 0 1 14.4 0"></path>
+          </svg>
+        </a>
+
+        <button class="icone-btn" type="button" id="abrir-sacola"
+                aria-label="Abrir sacola de compras" aria-expanded="false" aria-controls="drawer-sacola">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <path d="M5.5 8h13l-1 12.2a1.6 1.6 0 0 1-1.6 1.5H8.1a1.6 1.6 0 0 1-1.6-1.5z"></path>
+            <path d="M9 8V6.4a3 3 0 0 1 6 0V8"></path>
+          </svg>
+          <span class="icone-btn__badge" id="sacola-badge" data-vazio="true" aria-hidden="true">0</span>
+          <span class="sr-only" id="sacola-anuncio" role="status"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="overlay" id="overlay" hidden></div>
+
+  <aside class="drawer" id="drawer-sacola" role="dialog" aria-modal="true"
+         aria-labelledby="titulo-sacola" hidden>
+    <header class="drawer__cabecalho">
+      <div>
+        <h2 class="drawer__titulo" id="titulo-sacola">Sua sacola</h2>
+        <p class="texto-xs texto-fraco" id="sacola-resumo">Nenhum item</p>
+      </div>
+      <button class="fechar-btn" type="button" data-fechar="drawer-sacola" aria-label="Fechar sacola">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18"></path>
+        </svg>
+      </button>
+    </header>
+    <div class="drawer__corpo" id="sacola-corpo"></div>
+    <footer class="drawer__rodape">
+      <div class="linha-total">
+        <span>Subtotal</span>
+        <span class="preco" id="sacola-subtotal">R$ 0,00</span>
+      </div>
+      <div class="linha-total">
+        <span>Frete</span>
+        <span class="texto-xs" id="sacola-frete">informe o CEP no checkout</span>
+      </div>
+      <div class="linha-total linha-total--destaque">
+        <span>Total</span>
+        <span class="preco" id="sacola-total">R$ 0,00</span>
+      </div>
+      <a class="btn btn--bloco" href="checkout.html" id="ir-para-checkout">Finalizar compra</a>
+      <button class="btn btn--fantasma btn--bloco" type="button" data-fechar="drawer-sacola">Continuar comprando</button>
+    </footer>
+  </aside>
+
+  <aside class="filtros" id="menu-lateral" role="dialog" aria-modal="true" aria-label="Menu de navegação" hidden>
+    <div class="filtros__cabecalho">
+      <h2 class="filtros__titulo">Navegar</h2>
+      <button class="fechar-btn" type="button" data-fechar="menu-lateral" aria-label="Fechar menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18"></path>
+        </svg>
+      </button>
+    </div>
+    <nav aria-label="Menu principal">
+      <ul class="rodape__lista">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="index.html#colecoes">Coleções</a></li>
+        <li><a href="index.html#vitrine">Todos os produtos</a></li>
+        <li><a href="guia-de-medidas.html">Guia de medidas</a></li>
+        <li><a href="#" data-pagina-futura="sobre.html">Sobre a marca</a></li>
+        <li><a href="conta.html">Minha conta</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main id="conteudo-principal">
+    <div class="container pagina">
+      <nav class="trilha" aria-label="Você está em">
+        <a href="index.html">Início</a>
+        <span aria-hidden="true">/</span>
+        <a id="pdp-trilha-categoria" href="index.html#vitrine">Categoria</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Produto</span>
+      </nav>
+
+      <!-- Mostrado apenas quando o ?slug= da URL não existe -->
+      <section class="estado-vazio" id="pdp-indisponivel" hidden
+               style="margin-top: var(--esp-7)">
+        <h1 style="font-size: var(--txt-xl)">Não encontramos esse produto</h1>
+        <p class="texto-sm">
+          O endereço <code id="pdp-indisponivel-slug"></code> não existe ou a peça saiu de linha.
+        </p>
+        <a class="btn" href="index.html#vitrine">Ver todos os produtos</a>
+      </section>
+
+      <!-- =====================================================================
+           PDP: galeria (esquerda) + informação (direita)
+           ===================================================================== -->
+      <article class="pdp" id="pdp">
+        <div class="pdp__galeria">
+          <figure class="pdp__foto">
+            <img id="pdp-foto" src="assets/img/p-01.svg" alt="" width="800" height="1000"
+                 fetchpriority="high" decoding="async">
+            <span class="pdp__badges" id="pdp-badges"></span>
+            <button class="pdp__favorito" type="button" id="pdp-favorito"
+                    aria-pressed="false" aria-label="Salvar na lista de desejos">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 20s-7-4.4-7-9.2A4 4 0 0 1 12 8a4 4 0 0 1 7 2.8C19 15.6 12 20 12 20z"></path>
+              </svg>
+            </button>
+          </figure>
+          <div class="pdp__miniaturas" id="pdp-miniaturas" role="group"
+               aria-label="Fotos do produto"></div>
+        </div>
+
+        <div class="pdp__info">
+          <p class="pdp__colecao" id="pdp-colecao"></p>
+          <h1 class="pdp__titulo" id="pdp-titulo"></h1>
+          <p class="pdp__avaliacao" id="pdp-avaliacao"></p>
+
+          <div class="pdp__preco">
+            <span class="badge badge--alerta" id="pdp-desconto" hidden></span>
+            <span class="pdp__preco-antigo" id="pdp-preco-antigo" hidden></span>
+            <span class="preco pdp__preco-valor" id="pdp-preco"></span>
+            <span class="texto-sm texto-suave" id="pdp-parcelas"></span>
+            <span class="pdp__pix" id="pdp-pix"></span>
+          </div>
+
+          <div class="pdp__opcoes">
+            <div class="pdp__opcoes-cabecalho">
+              <span class="campo__rotulo">Cor: <strong id="pdp-cor-atual"></strong></span>
+            </div>
+            <div class="opcoes-grade" id="pdp-cores" role="group" aria-label="Escolher cor"></div>
+          </div>
+
+          <div class="pdp__opcoes">
+            <div class="pdp__opcoes-cabecalho">
+              <span class="campo__rotulo">Tamanho: <strong id="pdp-tamanho-atual"></strong></span>
+              <a class="pdp__guia" id="pdp-guia" href="guia-de-medidas.html">Ver guia de medidas</a>
+            </div>
+            <div class="opcoes-grade" id="pdp-tamanhos" role="group" aria-label="Escolher tamanho"></div>
+            <p class="pdp__estoque" id="pdp-estoque" role="status" aria-live="polite"></p>
+          </div>
+
+          <div class="pdp__frete">
+            <label class="campo__rotulo" for="pdp-cep">Calcular frete e prazo</label>
+            <div class="pdp__frete-linha">
+              <input class="campo__entrada" id="pdp-cep" name="cep" inputmode="numeric"
+                     maxlength="9" placeholder="Seu CEP" autocomplete="postal-code">
+              <button class="btn btn--contorno" type="button" id="pdp-calcular-frete">Calcular</button>
+            </div>
+            <p class="pdp__frete-resultado" id="pdp-frete-resultado" role="status" aria-live="polite"></p>
+          </div>
+
+          <div class="pdp__compra">
+            <button class="btn btn--bloco" type="button" id="pdp-adicionar">Adicionar à sacola</button>
+            <button class="btn btn--contorno btn--bloco" type="button" id="pdp-comprar">Comprar agora</button>
+          </div>
+
+          <ul class="pdp__selos">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+                <path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"></path><circle cx="7" cy="18" r="1.6"></circle>
+                <circle cx="17.5" cy="18" r="1.6"></circle>
+              </svg>
+              <span>Postado em até 24h úteis · frete grátis acima de R$ 349</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+                <path d="M12 3v3M12 18v3M3 12h3M18 12h3"></path><circle cx="12" cy="12" r="3.2"></circle>
+              </svg>
+              <span>Troca de tamanho em 30 dias, a primeira por nossa conta</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+                <rect x="3" y="6" width="18" height="12" rx="2"></rect><path d="M3 10h18"></path>
+              </svg>
+              <span>Pix com 5% de desconto ou cartão em até 12x</span>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- =====================================================================
+           Descrição e ficha técnica
+           ===================================================================== -->
+      <section class="bloco-editorial" id="pdp-detalhes" aria-labelledby="titulo-sobre-peca">
+        <div class="bloco-editorial__cabecalho">
+          <span class="etiqueta">Detalhes</span>
+          <h2 id="titulo-sobre-peca">Sobre a peça</h2>
+        </div>
+        <div class="artigo" id="pdp-descricao"></div>
+
+        <div class="bloco-editorial__cabecalho" style="margin-top: var(--esp-6)">
+          <h2 id="titulo-ficha">Ficha técnica</h2>
+          <p>Os mesmos dados que ficam gravados na tabela <code>produto</code> do banco.</p>
+        </div>
+        <dl class="ficha-tecnica" id="pdp-ficha"></dl>
+
+        <p class="filtro__nota">
+          Ainda com dúvida no tamanho? O <a href="guia-de-medidas.html">guia de medidas</a> mostra
+          como medir uma peça que você já usa e compara com a tabela de cada modelagem.
+        </p>
+      </section>
+    </div>
+
+    <!-- =====================================================================
+         Você também pode gostar — reusa o MESMO card da home
+         ===================================================================== -->
+    <section class="secao secao--alt" id="pdp-relacionados-secao" aria-labelledby="titulo-relacionados">
+      <div class="container">
+        <div class="secao__cabecalho">
+          <div>
+            <span class="etiqueta">Mesma categoria</span>
+            <h2 class="secao__titulo" id="titulo-relacionados">Você também pode gostar</h2>
+          </div>
+        </div>
+        <div class="grid-produtos" id="pdp-relacionados"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="container">
+      <div class="rodape__grade">
+        <div class="rodape__marca">
+          <span class="marca">SUA MARCA<span class="marca__ponto" aria-hidden="true">.</span></span>
+          <p class="rodape__texto">
+            Marca própria de streetwear. Produção nacional, estoque próprio e ficha técnica
+            transparente: você sabe exatamente o tecido e a gramatura do que está comprando.
+          </p>
+          <form class="rodape__newsletter" style="margin-top: var(--esp-5)" id="form-newsletter">
+            <label class="rodape__titulo" for="newsletter-email">Avise-me dos próximos drops</label>
+            <input class="campo__entrada" id="newsletter-email" type="email" name="email"
+                   placeholder="seu@email.com" autocomplete="email" required>
+            <button class="btn btn--neon" type="submit">Quero receber</button>
+          </form>
+        </div>
+
+        <nav aria-labelledby="rodape-comprar">
+          <h2 class="rodape__titulo" id="rodape-comprar">Comprar</h2>
+          <ul class="rodape__lista">
+            <li><a href="index.html#vitrine">Todos os produtos</a></li>
+            <li><a href="index.html#vitrine">Camisetas oversized</a></li>
+            <li><a href="index.html#vitrine">Moletons</a></li>
+            <li><a href="index.html#vitrine">Calças cargo</a></li>
+            <li><a href="index.html#vitrine">Regatas</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="rodape-ajuda">
+          <h2 class="rodape__titulo" id="rodape-ajuda">Ajuda</h2>
+          <ul class="rodape__lista">
+            <li><a href="guia-de-medidas.html">Guia de medidas</a></li>
+            <li><a href="#" data-pagina-futura="trocas.html">Trocas e devoluções</a></li>
+            <li><a href="#" data-pagina-futura="frete.html">Prazos e frete</a></li>
+            <li><a href="conta-pedidos.html">Acompanhar meu pedido</a></li>
+            <li><a href="mailto:contato@suamarca.com.br">contato@suamarca.com.br</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="rodape-loja">
+          <h2 class="rodape__titulo" id="rodape-loja">A marca</h2>
+          <ul class="rodape__lista">
+            <li><a href="#" data-pagina-futura="sobre.html">Sobre nós</a></li>
+            <li><a href="#" data-pagina-futura="blog.html">Blog</a></li>
+            <li><a href="#" data-pagina-futura="privacidade.html">Privacidade e LGPD</a></li>
+            <li><a href="#" data-pagina-futura="termos.html">Termos de uso</a></li>
+            <li><a href="#" data-pagina-futura="atacado.html">Venda no atacado</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="rodape__base">
+        <p>© 2026 Sua Marca Confecções Ltda. CNPJ 00.000.000/0001-00 · São Paulo, SP</p>
+        <div class="rodape__pagamentos">
+          <span class="rodape__selo">Pix</span>
+          <span class="rodape__selo">Visa</span>
+          <span class="rodape__selo">Master</span>
+          <span class="rodape__selo">Elo</span>
+          <span class="rodape__selo">Compra segura</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast-regiao" id="toast-regiao" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Templates: o do card (relacionados) e o do item da sacola (gaveta) -->
+  <template id="tpl-card">
+    <article class="card" data-produto-id="">
+      <a class="card__midia" href="#" data-link-produto>
+        <img class="card__imagem" src="" alt="" width="480" height="600" loading="lazy" decoding="async">
+        <span class="card__badges"></span>
+        <button class="card__favorito" type="button" aria-pressed="false"
+                aria-label="Salvar na lista de desejos" data-acao="favoritar">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 20s-7-4.4-7-9.2A4 4 0 0 1 12 8a4 4 0 0 1 7 2.8C19 15.6 12 20 12 20z"></path>
+          </svg>
+        </button>
+      </a>
+      <div class="card__corpo">
+        <p class="card__marca"></p>
+        <h3 class="card__titulo"><a href="#" data-link-produto></a></h3>
+        <ul class="card__atributos"></ul>
+        <div class="card__variacoes">
+          <div class="card__tamanhos" role="group" aria-label="Escolher tamanho"></div>
+          <div class="card__cores" aria-hidden="true"></div>
+        </div>
+        <p class="card__preco">
+          <span class="preco"></span>
+          <span class="card__parcelas"></span>
+        </p>
+        <div class="card__acoes">
+          <button class="btn btn--bloco" type="button" data-acao="adicionar">Adicionar à sacola</button>
+        </div>
+        <p class="card__entrega">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"></path><circle cx="12" cy="10" r="2.4"></circle>
+          </svg>
+          <span></span>
+        </p>
+      </div>
+    </article>
+  </template>
+
+  <template id="tpl-item-sacola">
+    <li class="item-sacola" data-item-id="">
+      <img class="item-sacola__imagem" src="" alt="" width="76" height="95" loading="lazy">
+      <div class="item-sacola__info">
+        <p class="item-sacola__titulo"></p>
+        <p class="item-sacola__variacao"></p>
+        <p class="item-sacola__vendedor"></p>
+        <div class="item-sacola__rodape">
+          <div class="controle-qtd">
+            <button type="button" data-acao="diminuir" aria-label="Diminuir quantidade">−</button>
+            <output aria-live="polite"></output>
+            <button type="button" data-acao="aumentar" aria-label="Aumentar quantidade">+</button>
+          </div>
+          <span class="preco"></span>
+        </div>
+        <button class="item-sacola__remover" type="button" data-acao="remover">Remover</button>
+      </div>
+    </li>
+  </template>
+
+  <!-- Esta página NÃO carrega vitrine.js (não tem filtros) nem carrossel.js (não tem banner).
+       A ordem importa: as dependências vêm antes de quem as usa. -->
+  <script src="js/config.js" defer></script>
+  <script src="js/dados.js" defer></script>
+  <script src="js/sacola.js" defer></script>
+  <script src="js/favoritos.js" defer></script>
+  <script src="js/frete.js" defer></script>
+  <script src="js/card-produto.js" defer></script>
+  <script src="js/produto.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
