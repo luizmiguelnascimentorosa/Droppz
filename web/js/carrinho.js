@@ -60,6 +60,14 @@
     linha.querySelector('.controle-qtd output').textContent = item.quantidade;
     linha.querySelector('.carrinho__total').textContent = Sacola.moeda(item.preco * item.quantidade);
 
+    /* Trava o "+" no limite do estoque. O estoqueMaximo vem do produto e está
+       guardado dentro do próprio item da sacola (foi copiado no momento em que
+       a peça entrou). */
+    var botaoMais = linha.querySelector('[data-acao="aumentar"]');
+    var noLimite = item.quantidade >= (item.estoqueMaximo || 99);
+    botaoMais.disabled = noLimite;
+    if (noLimite) botaoMais.title = 'Só temos ' + item.estoqueMaximo + ' em estoque';
+
     return linha;
   }
 
@@ -96,6 +104,42 @@
 
     atualizarResumo();
   }
+
+  /* ---------- Quantidade e remoção ---------- */
+
+  function avisarRemocao() {
+    /* window.UI vive no app.js, que carrega DEPOIS deste arquivo — por isso a
+       checagem é feita aqui, na hora do clique, e não no topo do arquivo. */
+    if (window.UI) UI.avisar('Peça removida da sacola.');
+  }
+
+  /* Um listener só, no <ul>, cobrindo todas as linhas — inclusive as que ainda
+     serão criadas nas próximas renderizações. É o mesmo padrão da gaveta
+     (js/app.js): não amarramos um evento em cada botão. */
+  lista.addEventListener('click', function (evento) {
+    var botao = evento.target.closest('[data-acao]');
+    if (!botao) return;
+
+    var linha = botao.closest('[data-item-id]');
+    if (!linha) return;
+
+    var id = linha.dataset.itemId;
+    var item = Sacola.listar().filter(function (i) { return i.id === id; })[0];
+    if (!item) return;   // linha de um item que já saiu da sacola
+
+    if (botao.dataset.acao === 'remover') {
+      Sacola.remover(id);
+      avisarRemocao();
+      return;
+    }
+
+    /* O sacola.js decide as regras: limita ao estoque e, se a quantidade chegar
+       a zero, remove a linha. Aqui só dizemos "mais um" ou "menos um". */
+    var novaQuantidade = item.quantidade + (botao.dataset.acao === 'aumentar' ? 1 : -1);
+    Sacola.definirQuantidade(id, novaQuantidade);
+
+    if (novaQuantidade <= 0) avisarRemocao();
+  });
 
   renderizar();
 

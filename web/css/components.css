@@ -545,6 +545,9 @@
   transition: background-color var(--transicao-rapida);
 }
 .controle-qtd button:hover { background: var(--cor-fundo-alt); }
+/* Limite de estoque: o botão "+" fica apagado e não responde ao clique.
+   Melhor do que deixar clicar e "não acontecer nada". */
+.controle-qtd button:disabled { opacity: .35; cursor: not-allowed; background: none; }
 .controle-qtd output {
   min-width: 26px;
   text-align: center;
