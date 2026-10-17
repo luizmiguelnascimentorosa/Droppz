@@ -11,7 +11,7 @@
 (function () {
   'use strict';
 
-  var loja = window.LOJA || { marca: { nome: 'SUA MARCA' }, entrega: { prazoPostagem: '24h úteis' } };
+  var loja = window.LOJA || { marca: { nome: 'DROPPZ' }, entrega: { prazoPostagem: '24h úteis' } };
 
   /* Quanto de desconto arredondado, para o badge "-25%". */
   function calcularDesconto(produto) {

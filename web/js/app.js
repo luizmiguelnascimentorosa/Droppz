@@ -11,7 +11,7 @@
     return Array.prototype.slice.call((escopo || document).querySelectorAll(seletor));
   };
 
-  var loja = window.LOJA || { marca: { nome: 'SUA MARCA' }, entrega: { freteGratisAcima: 349, fretePadrao: 24.9 } };
+  var loja = window.LOJA || { marca: { nome: 'DROPPZ' }, entrega: { freteGratisAcima: 349, fretePadrao: 24.9 } };
 
   var overlay = $('#overlay');
   var gavetaAberta = null;

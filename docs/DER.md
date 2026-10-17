@@ -236,9 +236,18 @@ SELECT * FROM vw_vendas_por_mes WHERE competencia = '2026-02';
 
 ## 8. Trocar a marca
 
-A marca não é dado no banco — é identidade do sistema. Troque em:
+A marca **não é dado no banco** — é identidade do sistema (por isso não existe tabela `marca`).
+Hoje ela é **Droppz**, e aparece em 4 lugares:
 
-1. `configuracao.loja_nome` no `seed.sql`;
-2. header e footer do `web/index.html` (procure por `SUA MARCA` — são 3 pontos marcados com ⚠️);
-3. `<title>` e `<meta name="description">` do `web/index.html`;
-4. opcionalmente `web/js/dados.js` → `LOJA.marca.nome` (alimenta a linha de entrega dos cards).
+1. **`partials/header.html` e `partials/rodape.html`** → o logo (`DROPPZ.`) e o e-mail de contato.
+   Como a casca é compartilhada, mudar aqui vale para **todas** as páginas de uma vez.
+2. **`<title>` de cada página**: `web/index.html`, `produto.html`, `colecoes.html`, `guia-de-medidas.html`
+   (o título da PDP é trocado por JavaScript, então ele só precisa do valor inicial).
+3. **`web/js/config.js`** → `LOJA.marca.nome` (alimenta a linha de entrega dos cards, a sacola e o
+   título da PDP) e `LOJA.contato.email`.
+4. **`database/seed.sql`** → `configuracao.loja_nome` e `loja_email_contato`.
+
+> ⚠️ **A marca também está dentro das imagens.** Os SVGs de `web/assets/img/` são gerados por
+> `tools/gerar-imagens.js`, que tem `DROPPZ` escrito no código (produtos, favicon e diagrama de
+> medidas). Depois de trocar a marca, rode `node tools/gerar-imagens.js` — senão o site fica com
+> o logo novo e as fotos com o nome antigo.

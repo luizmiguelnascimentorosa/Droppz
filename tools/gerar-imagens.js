@@ -62,7 +62,7 @@ function produto(numero, paleta, titulo, etiqueta) {
     '<text x="64" y="838" font-family="' + FONTE + '" font-size="' + fonte + '" font-weight="800" ' +
     'letter-spacing="-3" fill="' + paleta.texto + '">' + titulo + '</text>' +
     '<text x="66" y="892" font-family="' + FONTE + '" font-size="28" font-weight="600" ' +
-    'letter-spacing="4" fill="' + paleta.acento + '">SUA MARCA</text>' +
+    'letter-spacing="4" fill="' + paleta.acento + '">DROPPZ</text>' +
     '<text x="66" y="940" font-family="' + FONTE + '" font-size="22" font-weight="500" ' +
     'letter-spacing="1" fill="' + paleta.texto + '" opacity="0.62">' + etiqueta + '</text>' +
     '<text x="66" y="116" font-family="' + MONO + '" font-size="22" ' +
@@ -70,7 +70,7 @@ function produto(numero, paleta, titulo, etiqueta) {
     '<rect x="46" y="46" width="708" height="908" fill="none" stroke="' + paleta.texto + '" ' +
     'stroke-opacity="0.15" stroke-width="2"/>';
 
-  return documento(800, 1000, corpo, titulo + ' — SUA MARCA');
+  return documento(800, 1000, corpo, titulo + ' — DROPPZ');
 }
 
 /* ---------------- banner do carrossel (21:8) ---------------- */
@@ -109,8 +109,8 @@ function favicon() {
   const corpo =
     '<rect width="64" height="64" rx="14" fill="#0e0e0e"/>' +
     '<text x="32" y="45" font-family="' + FONTE + '" font-size="34" font-weight="800" ' +
-    'text-anchor="middle" fill="#d8ff3e">SM</text>';
-  return documento(64, 64, corpo, 'SUA MARCA');
+    'text-anchor="middle" fill="#d8ff3e">D</text>';
+  return documento(64, 64, corpo, 'DROPPZ');
 }
 
 /* ---------------- diagrama técnico de medidas (usado no guia de medidas) ----------------

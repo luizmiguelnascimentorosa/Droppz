@@ -6,7 +6,7 @@
    A MARCA NÃO É DADO NO BANCO, É IDENTIDADE DO SISTEMA.
    Troque o nome em 3 lugares:
      1) configuracao.loja_nome (abaixo)
-     2) header e footer do web/index.html  (procure por "SUA MARCA")
+     2) header e footer do web/index.html  (procure por "DROPPZ")
      3) <title> e <meta name="description"> do web/index.html
    ===================================================================================== */
 SET NAMES utf8mb4;
@@ -188,9 +188,9 @@ INSERT INTO status_envio (id, codigo, nome, ordem) VALUES
 
 /* ---------- 7. CONFIGURAÇÕES DA LOJA (Proprietário) ---------- */
 INSERT INTO configuracao (chave, valor, tipo, grupo, descricao) VALUES
-  ('loja_nome',                  'SUA MARCA',          'texto',  'geral',      'Nome exibido da loja (troque pela sua marca)'),
+  ('loja_nome',                  'DROPPZ',          'texto',  'geral',      'Nome exibido da loja (troque pela sua marca)'),
   ('loja_cnpj',                  '00.000.000/0001-00', 'texto',  'geral',      'CNPJ da loja (emissor da nota fiscal)'),
-  ('loja_email_contato',         'contato@suamarca.com.br','texto','geral',    'E-mail de atendimento'),
+  ('loja_email_contato',         'contato@droppz.com.br','texto','geral',    'E-mail de atendimento'),
   ('loja_cep_expedicao',         '01310-100',          'texto',  'frete',      'CEP de origem para cálculo de frete'),
   ('frete_gratis_acima',         '349.00',             'decimal','frete',      'Frete grátis para pedidos acima de (R$)'),
   ('frete_fixo_padrao',          '24.90',              'decimal','frete',      'Frete cobrado abaixo do valor de frete grátis'),

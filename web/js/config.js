@@ -13,7 +13,7 @@
   window.LOJA = window.LOJA || {};
 
   window.LOJA.marca = {
-    nome: 'SUA MARCA',
+    nome: 'DROPPZ',
     slogan: 'streetwear de marca própria'
   };
 
@@ -28,7 +28,7 @@
   window.LOJA.faixaPreco = { min: 0, max: 700, passo: 10 };
 
   window.LOJA.contato = {
-    email: 'contato@suamarca.com.br'
+    email: 'contato@droppz.com.br'
   };
 
   window.LOJA.atualizadoEm = '2026-02-14T09:00:00-03:00';
