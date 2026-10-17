@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sua Sacola — Droppz</title>
+  <meta name="description" content="Confira as peças da sua sacola, ajuste as quantidades, calcule o frete e finalize a compra.">
+  <meta name="theme-color" content="#0e0e0e">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <a class="pular-para-conteudo" href="#conteudo-principal">Pular para o conteúdo principal</a>
+
+  <!-- Casca do site: vem dos partials, expandidos pelo servidor.js.
+       Nenhuma linha de cabeçalho, sacola ou rodapé escrita aqui. -->
+  <!-- #include header -->
+  <!-- #include sacola -->
+
+  <main id="conteudo-principal">
+  <div class="container pagina">
+    <nav class="trilha" aria-label="Você está em">
+      <a href="index.html">Início</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Sua sacola</span>
+    </nav>
+
+    <div class="titulo-pagina" style="margin-block: var(--esp-4) var(--esp-6)">
+      <h1>Sua sacola</h1>
+      <p class="texto-suave">
+        Confira as peças, ajuste as quantidades e calcule o frete antes de finalizar.
+      </p>
+    </div>
+
+    <!-- Estado vazio: escondido agora; o JavaScript mostra quando não houver itens -->
+    <div class="estado-vazio" id="carrinho-vazio" hidden>
+      <h2 style="font-size: var(--txt-lg)">Sua sacola está vazia</h2>
+      <p class="texto-sm" style="max-width: 48ch">
+        Escolha tamanho e cor no card do produto e clique em "Adicionar à sacola".
+      </p>
+      <a class="btn" href="index.html#vitrine">Explorar o catálogo</a>
+    </div>
+
+    <div class="carrinho" id="carrinho">
+      <!-- ============ COLUNA 1: os itens ============ -->
+      <section aria-labelledby="titulo-itens">
+        <h2 class="sr-only" id="titulo-itens">Itens da sacola</h2>
+        <p class="vitrine__resultado" id="carrinho-contagem" role="status" aria-live="polite"></p>
+
+        <ul class="lista-carrinho" id="lista-carrinho">
+          <!-- Vazio de propósito: quem preenche é o js/carrinho.js, lendo a sacola
+               do localStorage e clonando o <template id="tpl-item-carrinho"> -->
+        </ul>
+      </section>
+
+      <!-- ============ COLUNA 2: o resumo ============ -->
+      <aside class="carrinho__resumo" aria-labelledby="titulo-resumo">
+        <h2 id="titulo-resumo">Resumo do pedido</h2>
+
+        <div class="campo">
+          <label class="campo__rotulo" for="carrinho-cep">Calcular frete e prazo</label>
+          <div class="carrinho__linha-campo">
+            <input class="campo__entrada" id="carrinho-cep" inputmode="numeric" maxlength="9"
+                   placeholder="Seu CEP" autocomplete="postal-code">
+            <button class="btn btn--contorno" type="button" id="carrinho-calcular-frete">Calcular</button>
+          </div>
+          <p class="carrinho__aviso" id="carrinho-frete-resultado" role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="campo">
+          <label class="campo__rotulo" for="carrinho-cupom">Cupom de desconto</label>
+          <div class="carrinho__linha-campo">
+            <input class="campo__entrada" id="carrinho-cupom" placeholder="Código do cupom" autocomplete="off">
+            <button class="btn btn--contorno" type="button" id="carrinho-aplicar-cupom">Aplicar</button>
+          </div>
+          <p class="carrinho__aviso" id="carrinho-cupom-resultado" role="status" aria-live="polite"></p>
+        </div>
+
+        <hr class="divisor" style="margin-block: 0">
+
+        <div class="linha-total">
+          <span>Subtotal</span>
+          <span class="preco" id="carrinho-subtotal">R$ 0,00</span>
+        </div>
+        <div class="linha-total">
+          <span>Frete</span>
+          <span id="carrinho-frete">calcule pelo CEP</span>
+        </div>
+        <div class="linha-total" id="carrinho-desconto-linha" hidden>
+          <span>Desconto</span>
+          <span class="preco" id="carrinho-desconto">R$ 0,00</span>
+        </div>
+        <div class="linha-total linha-total--destaque">
+          <span>Total</span>
+          <span class="preco" id="carrinho-total">R$ 0,00</span>
+        </div>
+        <a class="btn btn--bloco" href="#" id="carrinho-finalizar"
+           data-pagina-futura="checkout.html">Finalizar compra</a>
+        <a class="btn btn--fantasma btn--bloco" href="index.html#vitrine">Continuar comprando</a>
+      </aside>
+    </div>
+  </div>
+</main>
+
+  <!-- #include rodape -->
+
+  <div class="toast-regiao" id="toast-regiao" aria-live="polite" aria-atomic="true"></div>
+
+
+
+  <template id="tpl-item-sacola">
+    <li class="item-sacola" data-item-id="">
+      <img class="item-sacola__imagem" src="" alt="" width="76" height="95" loading="lazy">
+      <div class="item-sacola__info">
+        <p class="item-sacola__titulo"></p>
+        <p class="item-sacola__variacao"></p>
+        <p class="item-sacola__vendedor"></p>
+        <div class="item-sacola__rodape">
+          <div class="controle-qtd">
+            <button type="button" data-acao="diminuir" aria-label="Diminuir quantidade">−</button>
+            <output aria-live="polite"></output>
+            <button type="button" data-acao="aumentar" aria-label="Aumentar quantidade">+</button>
+          </div>
+          <span class="preco"></span>
+        </div>
+        <button class="item-sacola__remover" type="button" data-acao="remover">Remover</button>
+      </div>
+    </li>
+  </template>
+
+  <!-- Linha de item do carrinho: TODOS os campos vêm vazios.
+       Quem preenche é o js/carrinho.js, clonando este template por item da sacola. -->
+  <template id="tpl-item-carrinho">
+    <li class="carrinho__item">
+      <a class="carrinho__foto" href="#">
+        <img src="" alt="" width="96" height="120" loading="lazy">
+      </a>
+      <div class="carrinho__dados">
+        <p class="carrinho__marca"></p>
+        <h3 class="carrinho__titulo"><a href="#"></a></h3>
+        <p class="carrinho__variacao"></p>
+        <p class="carrinho__unitario"></p>
+
+        <div class="carrinho__rodape">
+          <div class="controle-qtd">
+            <button type="button" data-acao="diminuir" aria-label="Diminuir quantidade">−</button>
+            <output aria-live="polite"></output>
+            <button type="button" data-acao="aumentar" aria-label="Aumentar quantidade">+</button>
+          </div>
+          <button class="carrinho__remover" type="button" data-acao="remover">Remover</button>
+        </div>
+      </div>
+      <p class="carrinho__total"></p>
+    </li>
+  </template>
+
+  <!-- Ordem: dependências antes de quem as usa -->
+  <script src="js/config.js" defer></script>
+  <script src="js/dados.js" defer></script>
+  <script src="js/sacola.js" defer></script>
+  <script src="js/frete.js" defer></script>
+  <script src="js/carrinho.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>

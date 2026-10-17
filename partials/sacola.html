@@ -32,7 +32,11 @@
         <span>Total</span>
         <span class="preco" id="sacola-total">R$ 0,00</span>
       </div>
-      <a class="btn btn--bloco" href="checkout.html" id="ir-para-checkout">Finalizar compra</a>
+      <!-- A sacola completa é uma página de verdade; o checkout ainda não existe,
+           por isso ele avisa em vez de dar 404 (data-pagina-futura). -->
+      <a class="btn btn--bloco" href="carrinho.html">Ver sacola completa</a>
+      <a class="btn btn--contorno btn--bloco" href="#" id="ir-para-checkout"
+         data-pagina-futura="checkout.html">Finalizar compra</a>
       <button class="btn btn--fantasma btn--bloco" type="button" data-fechar="drawer-sacola">Continuar comprando</button>
     </footer>
   </aside>
@@ -55,6 +59,7 @@
         <li><a href="#" data-pagina-futura="sobre.html">Sobre a marca</a></li>
         <li><a href="guia-de-medidas.html">Guia de medidas</a></li>
         <li><a href="favoritos.html">Lista de desejos</a></li>
+        <li><a href="carrinho.html">Minha sacola</a></li>
         <li><a href="conta.html">Minha conta</a></li>
       </ul>
     </nav>

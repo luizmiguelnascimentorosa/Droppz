@@ -1014,3 +1014,91 @@
 @media (max-width: 560px) {
   .ficha-tecnica__linha { grid-template-columns: minmax(0, 1fr); gap: var(--esp-1); }
 }
+
+/* ---------------------------------------------------------------------------
+   CARRINHO — página da sacola.
+   A gaveta do cabeçalho continua sendo a versão compacta; aqui o item ganha
+   preço unitário, subtotal da linha e controles maiores.
+   --------------------------------------------------------------------------- */
+.carrinho {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: clamp(1.5rem, 1rem + 2vw, 3rem);
+  align-items: start;
+}
+/* Sem essa linha, a coluna dos itens estoura a página (item de grid não encolhe sozinho) */
+@media (max-width: 1024px) { .carrinho { grid-template-columns: minmax(0, 1fr); } }
+
+.lista-carrinho { border-top: 1px solid var(--cor-linha); }
+
+.carrinho__item {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) auto;
+  gap: var(--esp-5);
+  align-items: start;
+  padding-block: var(--esp-5);
+  border-bottom: 1px solid var(--cor-linha);
+}
+.carrinho__foto {
+  display: block;
+  width: 96px;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--raio-sm);
+  overflow: hidden;
+  background: var(--cor-fundo-alt);
+}
+.carrinho__foto img { width: 100%; height: 100%; object-fit: cover; }
+
+.carrinho__dados { display: grid; gap: var(--esp-1); min-width: 0; }
+.carrinho__marca {
+  font-size: var(--txt-2xs);
+  font-weight: var(--peso-forte);
+  letter-spacing: var(--rastreio-etiqueta);
+  text-transform: uppercase;
+  color: var(--cor-tinta-fraca);
+}
+.carrinho__titulo { font-size: var(--txt-base); font-weight: var(--peso-medio); }
+.carrinho__titulo a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.carrinho__variacao { font-size: var(--txt-xs); color: var(--cor-tinta-suave); }
+.carrinho__unitario { font-size: var(--txt-xs); color: var(--cor-tinta-fraca); }
+.carrinho__rodape { display: flex; align-items: center; gap: var(--esp-4); margin-top: var(--esp-2); }
+.carrinho__remover {
+  font-size: var(--txt-xs);
+  color: var(--cor-tinta-fraca);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.carrinho__remover:hover { color: var(--cor-alerta); }
+.carrinho__total {
+  font-size: var(--txt-md);
+  font-weight: var(--peso-forte);
+  font-variant-numeric: tabular-nums;   /* números alinhados na vertical */
+  white-space: nowrap;
+}
+
+/* No celular o item vira 2 colunas e o total desce para baixo dos dados */
+@media (max-width: 700px) {
+  .carrinho__item { grid-template-columns: 84px minmax(0, 1fr); gap: var(--esp-4); }
+  .carrinho__foto { width: 84px; }
+  .carrinho__total { grid-column: 2; }
+}
+
+/* Resumo: acompanha a rolagem no desktop, vira bloco normal no celular */
+.carrinho__resumo {
+  position: sticky;
+  top: calc(var(--altura-header) + var(--esp-5));
+  display: grid;
+  gap: var(--esp-4);
+  padding: var(--esp-6);
+  border: 1px solid var(--cor-linha);
+  border-radius: var(--raio-lg);
+  background: var(--cor-superficie);
+}
+@media (max-width: 1024px) { .carrinho__resumo { position: static; } }
+.carrinho__resumo h2 { font-size: var(--txt-md); font-weight: var(--peso-forte); }
+
+.carrinho__linha-campo { display: flex; gap: var(--esp-2); }
+.carrinho__linha-campo .campo__entrada { flex: 1; min-width: 0; }
+
+.carrinho__aviso { font-size: var(--txt-xs); color: var(--cor-tinta-suave); }
+.carrinho__aviso--erro { color: var(--cor-alerta); font-weight: var(--peso-medio); }
