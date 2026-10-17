@@ -23,6 +23,17 @@
   var campoSubtotal  = document.getElementById('carrinho-subtotal');
   var campoTotal     = document.getElementById('carrinho-total');
 
+  // Resumo: frete, desconto e os campos que alimentam a conta
+  var campoFrete     = document.getElementById('carrinho-frete');
+  var linhaDesconto  = document.getElementById('carrinho-desconto-linha');
+  var campoDesconto  = document.getElementById('carrinho-desconto');
+  var campoCep       = document.getElementById('carrinho-cep');
+  var botaoCalcular  = document.getElementById('carrinho-calcular-frete');
+  var resultadoFrete = document.getElementById('carrinho-frete-resultado');
+  var campoCupom     = document.getElementById('carrinho-cupom');
+  var botaoAplicar   = document.getElementById('carrinho-aplicar-cupom');
+  var resultadoCupom = document.getElementById('carrinho-cupom-resultado');
+
   /* Cada página checa o que precisa antes de usar: assim ela não quebra se algum
      pedaço do HTML for removido por engano. */
   if (!tpl || !lista || !window.Sacola) return;
@@ -71,11 +82,73 @@
     return linha;
   }
 
+  /* A conta do total mora AQUI, num lugar só: subtotal − desconto + frete.
+     Se a regra do cupom mudar um dia, é só aqui que muda. */
+  function calcularTotais(subtotal, frete) {
+    var desconto = 0;
+    var cupomVale = !!cupomAtual && subtotal >= cupomAtual.minimo;
+
+    if (cupomVale) {
+      if (cupomAtual.tipo === 'porcentagem') desconto = subtotal * (cupomAtual.valor / 100);
+      else if (cupomAtual.tipo === 'fixo') desconto = Math.min(cupomAtual.valor, subtotal);
+    }
+
+    var valorFrete = frete ? frete.valor : 0;
+    if (cupomVale && cupomAtual.tipo === 'frete') valorFrete = 0;
+
+    return {
+      desconto: desconto,
+      frete: valorFrete,
+      cupomVale: cupomVale,
+      total: Math.max(0, subtotal - desconto + valorFrete)
+    };
+  }
+
   function atualizarResumo() {
-    var resumo = Sacola.resumo();   // { linhas, pecas, subtotal, subtotalFormatado, ... }
+    var resumo = Sacola.resumo();
+
+    /* O frete é RECALCULADO a cada mudança da sacola. Guardar o valor do frete (em vez
+       do CEP) deixaria a tela mentindo: um carrinho com frete grátis que perde uma peça
+       precisaria voltar a cobrar o frete. */
+    var frete = cepAtual ? Frete.paraCep(cepAtual, resumo.subtotal) : null;
+    var contas = calcularTotais(resumo.subtotal, frete);
+    var freteSaiDeGraca = !!frete && (frete.gratis || (contas.cupomVale && cupomAtual.tipo === 'frete'));
 
     campoSubtotal.textContent = Sacola.moeda(resumo.subtotal);
-    campoTotal.textContent = Sacola.moeda(resumo.subtotal);   // frete e cupom entram na Fase 5
+
+    if (campoFrete) {
+      campoFrete.textContent = !frete
+        ? 'calcule pelo CEP'
+        : (freteSaiDeGraca ? 'Grátis' : Sacola.moeda(contas.frete));
+    }
+
+    /* A mensagem do frete também é reescrita aqui, porque "grátis" pode ter mudado
+       com a quantidade. */
+    if (resultadoFrete && frete) {
+      resultadoFrete.textContent = frete.gratis
+        ? 'Frete grátis · ' + frete.regiao + ' · ' + frete.prazoMin +
+          ' a ' + frete.prazoMax + ' dias úteis'
+        : Frete.descrever(frete);   // texto pronto do módulo: nenhuma tela inventa formato
+      limparAviso(resultadoFrete);
+      resultadoFrete.classList.add('carrinho__aviso--ok');
+    }
+
+    /* A linha "Desconto" só aparece quando existe desconto de verdade. */
+    if (linhaDesconto) {
+      linhaDesconto.hidden = contas.desconto <= 0;
+      if (campoDesconto) campoDesconto.textContent = '− ' + Sacola.moeda(contas.desconto);
+    }
+
+    /* Cupom que deixou de valer porque o subtotal caiu abaixo do mínimo:
+       avisa em vez de simplesmente parar de aplicar sem explicação. */
+    if (cupomAtual && !contas.cupomVale && resultadoCupom) {
+      resultadoCupom.textContent = 'O cupom ' + cupomAtual.codigo + ' não vale mais: ' +
+        'o mínimo é ' + Sacola.moeda(cupomAtual.minimo) + '.';
+      limparAviso(resultadoCupom);
+      resultadoCupom.classList.add('carrinho__aviso--erro');
+    }
+
+    campoTotal.textContent = Sacola.moeda(contas.total);
 
     contagem.textContent = resumo.pecas === 0
       ? ''
@@ -140,6 +213,98 @@
 
     if (novaQuantidade <= 0) avisarRemocao();
   });
+
+  /* ---------- Frete e cupom ---------- */
+
+  /* ⚠️ SIMULAÇÃO DE FRONT. No back-end isto vira uma rota que valida o cupom e devolve
+     o valor final — preço, frete e desconto NUNCA podem ser decididos pelo navegador:
+     qualquer pessoa abre o DevTools e muda o que quiser. */
+  var CUPONS = {
+    'DROPPZ10':       { tipo: 'porcentagem', valor: 10, minimo: 200, como: '10% de desconto' },
+    'PRIMEIRACOMPRA': { tipo: 'fixo',        valor: 30, minimo: 250, como: 'R$ 30 de desconto' },
+    'FRETEGRATIS':    { tipo: 'frete',       valor: 0,  minimo: 0,   como: 'frete grátis' }
+  };
+
+  var cepAtual = null;     // último CEP que passou na validação
+  var cupomAtual = null;   // { codigo, tipo, valor, minimo }
+
+  function limparAviso(elemento) {
+    if (!elemento) return;
+    elemento.classList.remove('carrinho__aviso--erro', 'carrinho__aviso--ok');
+  }
+
+  function calcularFrete() {
+    limparAviso(resultadoFrete);
+
+    if (!Frete.estimar(campoCep.value)) {
+      cepAtual = null;
+      resultadoFrete.textContent = 'CEP não encontrado. Confira os 8 dígitos.';
+      resultadoFrete.classList.add('carrinho__aviso--erro');
+      atualizarResumo();
+      return;
+    }
+
+    /* Guardamos o CEP, não o valor: o valor é recalculado a cada mudança da sacola,
+       porque o frete grátis depende do subtotal. Quem escreve a mensagem é o resumo. */
+    cepAtual = Frete.formatarCep(campoCep.value);
+    atualizarResumo();
+  }
+
+  function aplicarCupom() {
+    var codigo = (campoCupom.value || '').trim().toUpperCase();
+    if (!codigo) return;
+
+    var subtotal = Sacola.subtotal();
+    var cupom = CUPONS[codigo];
+
+    limparAviso(resultadoCupom);
+
+    if (!cupom) {
+      cupomAtual = null;
+      resultadoCupom.textContent = 'Cupom "' + codigo + '" não encontrado.';
+      resultadoCupom.classList.add('carrinho__aviso--erro');
+      atualizarResumo();
+      return;
+    }
+
+    if (subtotal < cupom.minimo) {
+      cupomAtual = null;
+      resultadoCupom.textContent = 'Este cupom vale a partir de ' +
+        Sacola.moeda(cupom.minimo) + ' em produtos.';
+      resultadoCupom.classList.add('carrinho__aviso--erro');
+      atualizarResumo();
+      return;
+    }
+
+    cupomAtual = { codigo: codigo, tipo: cupom.tipo, valor: cupom.valor, minimo: cupom.minimo };
+    resultadoCupom.textContent = 'Cupom ' + codigo + ' aplicado · ' + cupom.como + '.';
+    resultadoCupom.classList.add('carrinho__aviso--ok');
+    atualizarResumo();
+  }
+
+  if (campoCep && botaoCalcular && resultadoFrete && window.Frete) {
+    /* Máscara enquanto digita. O módulo cuida do formato (01310-100) e da validação —
+       aqui só ligamos o campo, igual ao app.js faz na PDP. */
+    campoCep.addEventListener('input', function () {
+      campoCep.value = Frete.formatarCep(campoCep.value);
+      limparAviso(resultadoFrete);
+      resultadoFrete.textContent = '';
+    });
+
+    botaoCalcular.addEventListener('click', calcularFrete);
+
+    campoCep.addEventListener('keydown', function (evento) {
+      if (evento.key === 'Enter') { evento.preventDefault(); calcularFrete(); }
+    });
+  }
+
+  if (campoCupom && botaoAplicar && resultadoCupom) {
+    botaoAplicar.addEventListener('click', aplicarCupom);
+
+    campoCupom.addEventListener('keydown', function (evento) {
+      if (evento.key === 'Enter') { evento.preventDefault(); aplicarCupom(); }
+    });
+  }
 
   renderizar();
 

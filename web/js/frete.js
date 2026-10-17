@@ -70,6 +70,20 @@
     return { valor: gratis ? 0 : FRETE_PADRAO, gratis: gratis, indeterminado: false };
   }
 
+  /* Valor FINAL para um CEP: a região diz o preço e o prazo, a política da loja diz se
+     sai de graça. É esta a função que as telas com CEP preenchido devem usar — assim o
+     preço por região e a regra de frete grátis nunca divergem. */
+  function paraCep(cep, subtotal) {
+    var estimativa = estimar(cep);
+    if (!estimativa) return null;
+
+    var gratis = (subtotal || 0) >= FRETE_GRATIS_ACIMA;
+    estimativa.valorBase = estimativa.valor;
+    estimativa.valor = gratis ? 0 : estimativa.valor;
+    estimativa.gratis = gratis;
+    return estimativa;
+  }
+
   /* Texto pronto para exibição — assim nenhuma tela inventa o seu formato. */
   function descrever(estimativa) {
     if (!estimativa) return '';
@@ -84,6 +98,7 @@
     cepValido: cepValido,
     estimar: estimar,
     calcularParaSubtotal: calcularParaSubtotal,
+    paraCep: paraCep,
     descrever: descrever,
     freteGratisAcima: FRETE_GRATIS_ACIMA,
     fretePadrao: FRETE_PADRAO

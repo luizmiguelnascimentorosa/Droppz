@@ -1105,3 +1105,4 @@
 
 .carrinho__aviso { font-size: var(--txt-xs); color: var(--cor-tinta-suave); }
 .carrinho__aviso--erro { color: var(--cor-alerta); font-weight: var(--peso-medio); }
+.carrinho__aviso--ok { color: var(--cor-sucesso); font-weight: var(--peso-medio); }
