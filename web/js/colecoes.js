@@ -8,28 +8,17 @@
 (function () {
   'use strict';
 
-  var loja = window.LOJA || {};
-  var produtos = loja.produtos || [];
   var tplCard = document.getElementById('tpl-card');
 
-  if (!tplCard || !window.CardProduto) return;
+  if (!tplCard || !window.CardProduto || !window.Colecoes) return;
 
-  /* Um produto pode estar em mais de uma coleção (ex.: o id 1 está em Essencial e Básicos),
-     então ele aparece em cada seção a que pertence — é o comportamento esperado. */
-  function doColecao(slug) {
-    return produtos
-      .filter(function (produto) {
-        return (produto.colecoes || []).some(function (c) { return c.slug === slug; });
-      })
-      .sort(function (a, b) { return b.vendas - a.vendas; }); // mais vendidos primeiro
-  }
-
-  function rotuloPecas(n) { return n + (n === 1 ? ' peça' : ' peças'); }
+  /* A conta "quais produtos pertencem a esta coleção" mora em js/colecoes-dados.js,
+     compartilhada com a home — assim as duas telas nunca divergem. */
+  var doColecao = Colecoes.doColecao;
+  var rotuloPecas = Colecoes.rotuloPecas;
 
   // Contagem real nos mosaicos do topo (a mesma conta das seções abaixo).
-  Array.prototype.forEach.call(document.querySelectorAll('[data-contagem-tile]'), function (alvo) {
-    alvo.textContent = rotuloPecas(doColecao(alvo.dataset.contagemTile).length);
-  });
+  Colecoes.preencherContagensTiles();
 
   Array.prototype.forEach.call(document.querySelectorAll('[data-colecao]'), function (secao) {
     var lista = doColecao(secao.dataset.colecao);

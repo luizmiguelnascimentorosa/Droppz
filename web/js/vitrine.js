@@ -300,4 +300,9 @@
   }
   lerFiltrosDaTela();
   renderizar();
+
+  /* As contagens dos mosaicos de coleção vêm do módulo compartilhado
+     (js/colecoes-dados.js) — a MESMA conta que a página de coleções usa.
+     O HTML já traz o número certo dentro do span; isto mantém ele verdadeiro. */
+  if (window.Colecoes) Colecoes.preencherContagensTiles();
 })();
